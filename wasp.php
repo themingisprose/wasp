@@ -41,3 +41,8 @@ function wasp_textdomain(){
 	load_muplugin_textdomain( 'wasp', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 }
 add_action( 'plugins_loaded', 'wasp_textdomain' );
+
+/**
+ * Include files
+ */
+require plugin_dir_path( __FILE__ ) .'/classes/index.php';
