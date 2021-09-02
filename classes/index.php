@@ -10,3 +10,6 @@ require plugin_dir_path( __FILE__ ) .'/admin/class.wasp-admin-setting-fields.php
 
 // Custom Post Type classes
 require plugin_dir_path( __FILE__ ) .'/post-type/class.wasp-post-type.php';
+
+// Meta Boxes
+require plugin_dir_path( __FILE__ ) .'/meta-box/class.wasp-meta-box.php';
