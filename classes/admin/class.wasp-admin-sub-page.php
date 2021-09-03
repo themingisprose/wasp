@@ -39,6 +39,24 @@ abstract class WASP_Admin_Sub_Page
 	public $menu_slug;
 
 	/**
+	 * Construct
+	 * @param string $page_title 	Page title
+	 * @param string $menu_title	Menu title
+	 * @param string $page_slug		Page slug
+	 *
+	 * @since WASP 1.0.0
+	 */
+	function __construct( $page_title = '', $menu_title = '', $page_slug )
+	{
+		$parent = new WASP_Admin_Page;
+
+		$this->parent_slug	= $parent->slug;
+		$this->page_title 	= $page_title;
+		$this->menu_title 	= $menu_title;
+		$this->menu_slug 	= $parent->slug .'-'. $page_slug;
+	}
+
+	/**
 	 * Init
 	 *
 	 * @since WASP 1.0.0

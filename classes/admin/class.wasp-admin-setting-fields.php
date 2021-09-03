@@ -51,6 +51,11 @@ abstract class WASP_Setting_Fields
 
 	/**
 	 * Construct
+	 * @param string $section_id 	HTML section id
+	 * @param string $section_title Section title
+	 * @param string $field_id 		HTML field id
+	 * @param string $field_title 	Field title
+	 * @param string $wpml_field 	Name of the filter returned by method fields()
 	 *
 	 * @since WASP 1.0.0
 	 */
