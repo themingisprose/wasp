@@ -60,6 +60,15 @@ class WASP_Admin_Page
 	 */
 	public function admin_menu()
 	{
+		/**
+		 * Filters if enabled the admin page
+		 * @param bool
+		 *
+		 * @since WASP 1.0.0
+		 */
+		if ( ! apply_filters( 'wasp_enable_admin_page', false ) )
+			return;
+
 		add_menu_page(
 			__( 'WASP Admin Page', 'wasp' ),
 			__( 'WASP', 'wasp' ),

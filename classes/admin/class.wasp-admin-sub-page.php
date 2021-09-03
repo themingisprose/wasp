@@ -84,6 +84,8 @@ abstract class WASP_Admin_Sub_Page
 
 	/**
 	 * Render the content of the section
+	 *
+	 * @since WASP 1.0.0
 	 */
 	public function render()
 	{
