@@ -10,6 +10,7 @@
 - Subpágina de administración `abstract class WASP_Admin_Sub_Page`
 - Custom Post Types `abstract class WASP_Custom_Post_Type`
 - Meta Boxes `abstract class WASP_Meta_Box`
+- Enqueue Scripts `class WASP_Enqueue`
 
 
 ## Página de Administración
@@ -198,3 +199,35 @@ $init->init();
 ```
 
 Ver documentación sobre **Meta Boxes** https://developer.wordpress.org/reference/functions/add_meta_box/
+
+## Enqueue Scripts
+La clase `WASP_Enqueue` nos permite agregar scripts y plugins js a nuestro sitio. El método `scripts()` es un ejemplo de cómo hacerlo.
+```php
+$enqueue = new WASP_Enqueue();
+$enqueue->scripts( true );
+```
+
+## NPM & Webpack
+En caso de que sea necesario usar `npm` y `webpack` ya tenemos configurado un `package.json` con lo mínimo para un entorno tanto de desarrollo como de producción.
+```bash
+npm install
+npm run build
+# or
+npm run watch
+```
+Se puede ampliar en este tema en el siguiente enlace https://rogertm.dev/entorno-desarrollo-npm-webpack/
+
+## Repo template
+Puedes generar tu propio repositorio a partir de este y usarlo como un _template_, solo debes pulsar el botón **Use this template**.
+
+Luego es recomendable cambiar algunas cosas para una mayor facilidad a la hora de trabajar:
+
+1. **Prefijo de clases**: Buscar `WASP_` y reemplazar por `Your_Class_Prefix`.
+2. **Prefijo de funciones**: Buscar `wasp_` y reemplazar por `your_function_prefix`.
+3. **Text domain**: Buscar `'wasp'` (entre comillas simples) y reemplazar por `'your-text-domain'`.
+4. **Slug**: Buscar `wasp-` y reemplazar por `your-slug-`.
+5. **Comentarios y documentación**: Buscar `WASP` y reemplazar por `Your project name`.
+6. **Archivos**: Buscar todos los archivos dentro del directorio `/classes` y cambiar el `slug` de cada uno por el que se ha especificado en el paso **4**. Ej: `class.wasp-admin-page.php` por `class.your-slug-admin-page.php`. Hacer lo mismo con el archivo `wasp.php`en la raíz del plugin.
+7. Editar la cabecera del plugin según sea necesario.
+
+Es importante seguir estos pasos en el mismo orden que se muestran.
