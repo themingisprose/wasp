@@ -1,0 +1,29 @@
+{
+  "name": "wasp",
+  "version": "1.0.0",
+  "description": "WASP. Woew! Another starter plugin",
+  "scripts": {
+    "build": "webpack --config webpack.prod.js",
+    "watch": "webpack --config webpack.dev.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/themingisprose/wasp.git"
+  },
+  "keywords": [
+    "wordpress",
+    "plugin"
+  ],
+  "author": "RogerTM",
+  "license": "GPL-2.0-or-later",
+  "bugs": {
+    "url": "https://github.com/themingisprose/wasp/issues"
+  },
+  "homepage": "https://github.com/themingisprose/wasp#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "^4.0.0",
+    "webpack": "^5.52.0",
+    "webpack-cli": "^4.8.0",
+    "webpack-merge": "^5.8.0"
+  }
+}

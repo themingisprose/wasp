@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WASP
  * Description: Wow! Another starter plugin
- * Plugin URI: https://#
+ * Plugin URI: https://github.com/themingisprose/wasp
  * Author: RogerTM
  * Author URI: https://rogertm.dev
  * Version: 1.0.0
