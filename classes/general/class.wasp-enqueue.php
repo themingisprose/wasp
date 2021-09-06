@@ -14,7 +14,7 @@ class WASP_Enqueue
 	 */
 	public function init()
 	{
-		add_action( 'wp_enqueue_scripts', array( $this, 'wasp' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'scripts' ) );
 	}
 
 	/**
@@ -23,13 +23,13 @@ class WASP_Enqueue
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public function wasp( $enqueue = false )
+	public function scripts( $enqueue = false )
 	{
 		if ( ! $enqueue )
 			return;
 
-		wp_register_script( 'wasp-app', plugin_dir_url( dirname( __DIR__ ) ) .'assets/dist/js/app.js', array(), '', true );
-		wp_enqueue_script( 'wasp-app' );
+		wp_register_script( 'wasp-scripts', plugin_dir_url( dirname( __DIR__ ) ) .'assets/dist/js/scripts.js', array(), '', true );
+		wp_enqueue_script( 'wasp-scripts' );
 	}
 }
 
