@@ -10,6 +10,7 @@
 - Subpágina de administración `abstract class WASP_Admin_Sub_Page`
 - Custom Post Types `abstract class WASP_Custom_Post_Type`
 - Meta Boxes `abstract class WASP_Meta_Box`
+- Taxonomies `abstract class WASP_Taxonomy`
 - Enqueue Scripts `class WASP_Enqueue`
 
 
@@ -229,7 +230,33 @@ $init->init();
 
 Ver documentación sobre **Meta Boxes** https://developer.wordpress.org/reference/functions/add_meta_box/
 
+## Taxonomies
+Para crear nuevas taxonomías necesitamos crear una clase que extienda de `WASP_Taxonomy`, y declaramos el constructor de la siguiente manera:
+```php
+class My_Class_Taxonomy extends WASP_Taxonomy
+{
+	function __construct()
+	{
+
+		$this->post_type 	= 'post';
+		$this->taxonomy 	= 'my-taxonomy';
+
+		$this->labels = array( ... );
+
+		$this->args = array(
+			'labels'		=> $this->labels,
+			...
+		);
+	}
+}
+
+$init = new My_Class_Taxonomy;
+$init->init();
+```
+Ver documentación sobre **Custom Taxonomies** https://developer.wordpress.org/reference/functions/register_taxonomy/
+
 ## Enqueue Scripts
+
 La clase `WASP_Enqueue` nos permite agregar scripts y plugins js a nuestro sitio. El método `scripts()` es un ejemplo de cómo hacerlo.
 ```php
 $enqueue = new WASP_Enqueue();
