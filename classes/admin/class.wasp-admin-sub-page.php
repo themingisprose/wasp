@@ -31,6 +31,14 @@ abstract class WASP_Admin_Sub_Page
 	public $menu_title;
 
 	/**
+	 * Dashboard Title
+	 * @access public
+	 *
+	 * @since WASP 1.0.0
+	 */
+	public $dashboard_title;
+
+	/**
 	 * Manu slug
 	 * @access public
 	 *
@@ -39,22 +47,20 @@ abstract class WASP_Admin_Sub_Page
 	public $menu_slug;
 
 	/**
-	 * Construct
-	 * @param string $page_title 	Page title
-	 * @param string $menu_title	Menu title
-	 * @param string $page_slug		Page slug
+	 * Option Group
+	 * @access public
 	 *
 	 * @since WASP 1.0.0
 	 */
-	function __construct( $page_title = '', $menu_title = '', $page_slug )
-	{
-		$parent = new WASP_Admin_Page;
+	public $option_group;
 
-		$this->parent_slug	= $parent->slug;
-		$this->page_title 	= $page_title;
-		$this->menu_title 	= $menu_title;
-		$this->menu_slug 	= $parent->slug .'-'. $page_slug;
-	}
+	/**
+	 * Option Name
+	 * @access public
+	 *
+	 * @since WASP 1.0.0
+	 */
+	public $option_name;
 
 	/**
 	 * Init
@@ -92,56 +98,16 @@ abstract class WASP_Admin_Sub_Page
 	{
 		?>
 			<div class="wrap">
-				<h2><?php echo $this->page_title ?></h2>
-				<table class="form-table" role="presentation">
-				<?php $this->render() ?>
-				</table>
+				<h2><?php echo $this->dashboard_title ?></h2>
+				<?php settings_errors( 'wasp-update' ) ?>
+				<form id="<?php echo $this->menu_slug ?>" method="post" action="options.php">
+					<?php
+						settings_fields( $this->option_group );
+						do_settings_sections( $this->menu_slug );
+						submit_button();
+					?>
+				</form>
 			</div>
 		<?php
 	}
-
-	/**
-	 * Render the content of the section
-	 *
-	 * @since WASP 1.0.0
-	 */
-	public function render()
-	{
-		$fields = $this->fields();
-
-		foreach ( $fields as $key => $value ) :
-		?>
-			<tr>
-				<th scope="row"><?php echo $value['label'] ?></th>
-				<td>
-					<p><?php echo $value['description'] ?></p>
-					<form method="post">
-						<?php
-						wp_nonce_field( $value['nonce_attr'], $value['nonce_field'] );
-						submit_button( $value['label'] );
-						?>
-					</form>
-				</td>
-			</tr>
-		<?php
-		endforeach;
-	}
-
-	/**
-	 * Array of fields to render
-	 * This method must return an associative array like the example
-	 * 		$fields = array(
-	 * 			array(
-	 * 				'label'			=> 'Field Name',
-	 * 				'description'	=> 'Description',
-	 * 				'nonce_attr'	=> 'Security nonce attribute',
-	 * 				'nonce_field'	=> 'Security nonce field',
-	 * 			),
-	 * 			...
-	 * 		);
-	 * @return array 		Array of fields
-	 *
-	 * @since WASP 1.0.0
-	 */
-	abstract public function fields();
 }

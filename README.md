@@ -76,50 +76,79 @@ $init->init();
 ```
 
 ## Subpágina de administración
-En caso que sea necesario, se puede crear una subpágina de administración extendiendo la clase `WASP_Admin_Sub_Page` y declarando el método `fields()` de dicha clase.
+En caso que sea necesario, se puede crear una subpágina de administración extendiendo la clase `WASP_Admin_Sub_Page`.
 
-### fields()
-Este método debe retornar un array asociativo.
+### __construct() & init()
+Se debe inicializar la clase pasando los siguientes parámetros al constructor y luego llamar al método `init()`:
 ```php
 class My_Class_Admin_Sub_Page extends WASP_Admin_Sub_Page
 {
 
-	public function fields()
+	function __construct()
 	{
-		/**
-		 * 'label' string			Nombre del campo
-		 * 'description' string		Descripción
-		 * 'nonce_attr' string 		Nombre del 'action'
-		 * 'nonce_field' string 	Nombre del 'nonce'
-		 */
+		$parent = new WASP_Admin_Page;
+
+		$this->parent_slug		= $parent->slug;
+		$this->page_title		= __( 'The WASP Subpage', 'wasp' );
+		$this->menu_title		= __( 'The WASP Subpage', 'wasp' );
+		$this->dashboard_title	= __( 'The WASP Subpage', 'wasp' );
+		$this->menu_slug		= $parent->slug .'-the-wasp-sp';
+
+		$this->option_group		= 'the_wasp_sp_setting';
+		$this->option_name		= 'the_wasp_sp_options';
+	}
+}
+$init = new My_Class_Admin_Sub_Page();
+$init->init();
+```
+
+### Agregar campos a la Subpágina de administración
+En este caso se debe crear una clase abstracta que extienda de `WASP_Setting_Fields`
+```php
+abstract class Subpage_Setting_Fields extends WASP_Setting_Fields
+{
+
+	function __construct( $section_id = '', $section_title = '', $field_id = '', $field_title = '', $wpml_field = null )
+	{
+		$admin = new My_Class_Admin_Sub_Page;
+		$this->slug 			= $admin->menu_slug;
+		$this->option_group 	= $admin->option_group;
+		$this->option_name 		= $admin->option_name;
+
+		$this->section_id 		= $section_id;
+		$this->section_title 	= $section_title;
+		$this->field_id 		= $field_id;
+		$this->field_title 		= $field_title;
+		$this->wpml_field 		= $wpml_field;
+	}
+}
+```
+Finalmente creamos la clase que va a imprimir los campos en pantalla, que a su vez extiende de `Subpage_Setting_Fields`.
+```php
+class My_Class_Subpage_Content extends My_Class_Subpage_Setting_Fields
+{
+
+	function fields()
+	{
 		$fields = array(
-			array(
-				'label'			=> __( 'Field name', 'text-domain' ),
-				'description'	=> __( 'Description', 'text-domain' ),
-				'nonce_attr'	=> '_nonce_attribute',
-				'nonce_field'	=> '_nonce_field',
+			'field_a'	=> array(
+				'label'		=> __( 'Field Label', 'text-domain' ),
+				'option'	=> 'field_a',
+				'type'		=> 'text',
+				'lang'		=> array()
 			),
 			...
 		);
 
 		return $fields;
-
 	}
 }
-```
-### __construct() & init()
-Se debe inicializar la clase pasando los siguientes parámetros al constructor y luego llamar al método `init()`:
-```php
-/**
- * @param string $page_title 	Page title
- * @param string $menu_title	Menu title
- * @param string $page_slug		Page slug
- */
-$init = new My_Class_Admin_Sub_Page(
-			__( 'Page Title', 'text-domain' ),
-			__( 'Menu Title', 'text-domain' ),
-			'my-submenu-slug'
-		);
+$init = new My_Class_Subpage_Content(
+				'section-section-id',
+				__( 'Section', 'wasp'),
+				'section-field-id',
+				__( 'Section Field', 'wasp')
+			);
 $init->init();
 ```
 
