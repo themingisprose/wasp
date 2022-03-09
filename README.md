@@ -291,8 +291,8 @@ Puedes generar tu propio repositorio a partir de este y usarlo como un _template
 
 Luego es recomendable cambiar algunas cosas para una mayor facilidad a la hora de trabajar:
 
-1. **Prefijo de clases**: Buscar `WASP_` y reemplazar por `Your_Class_Prefix`.
-2. **Prefijo de funciones**: Buscar `wasp_` y reemplazar por `your_function_prefix`.
+1. **Prefijo de clases**: Buscar `WASP_` y reemplazar por `Your_Class_Prefix_`.
+2. **Prefijo de funciones**: Buscar `wasp_` y reemplazar por `your_function_prefix_`.
 3. **Text domain**: Buscar `'wasp'` (entre comillas simples) y reemplazar por `'your-text-domain'`.
 4. **Slug**: Buscar `wasp-` y reemplazar por `your-slug-`.
 5. **Comentarios y documentación**: Buscar `WASP` y reemplazar por `Your project name`.
