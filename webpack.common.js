@@ -4,6 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
 	entry: {
 		'scripts': './assets/src/js/scripts.js',
+		'media-upload': './assets/src/js/media-upload.js',
 	},
 	plugins: [
 		new CleanWebpackPlugin(),

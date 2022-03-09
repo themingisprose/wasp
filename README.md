@@ -184,7 +184,20 @@ Ver documentación sobre **Custom Post Types** https://developer.wordpress.org/r
 Podemos agregar **Meta Boxes** a los diferentes post types creando una nueva clase y extendiendo de `WASP_Meta_Box` y delcarando el método `fields()` de dicha clase.
 
 ### fields()
-Este método debe retornar un array asociativo:
+Este método debe retornar un array asociativo. Cada item del array soporta la siguiente estructura:
+```
+'field_meta' => array(
+	'label'		=> Field Label,
+	'meta'		=> 'field_meta',
+	'type'		=> text|url|date|textarea|checkbox|title|media|content|select
+	'select'	=> array(
+					'value-a' => 'Value A',
+					'value-b' => 'Value B',
+					...
+				)
+)
+```
+`type` define el tipo de campo para ese elemento del formulario.`title` solo mostrará el `label` definido en el item en forma de título.  `media` permite agregar un grupo de imágenes desde la biblioteca de medias de WordPress. `content` habilitará un área de texto WYSIWYG. `select` una lista select, si este tipo de campo es definido, es necesario declarar la llave `select` a la que se le pasa un `array` donde cada elemento es un par `value => Label` para dicha lista. `text` es el valor por defecto.
 ```php
 class My_Class_Post_Meta_box extends WASP_Meta_Box
 {
