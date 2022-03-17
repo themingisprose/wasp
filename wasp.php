@@ -38,7 +38,7 @@ if ( ! defined( 'WPINC' ) )
  * @since WASP 1.0.0
  */
 function wasp_textdomain(){
-	load_muplugin_textdomain( 'wasp', false, basename( dirname( __FILE__ ) ) . '/languages/' );
+	load_plugin_textdomain( 'wasp', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 }
 add_action( 'plugins_loaded', 'wasp_textdomain' );
 
