@@ -205,7 +205,9 @@ abstract class WASP_Setting_Fields
 	{
 	?>
 		<div class="mb-2">
+			<?php if ( 'title' != $type ) : ?>
 			<label for="<?php echo $option ?>" class="description d-block mb-2"><?php echo $label ?></label>
+			<?php endif ?>
 		<?php
 			if ( 'content' == $type ) :
 				$settings = array(
@@ -226,6 +228,10 @@ abstract class WASP_Setting_Fields
 			elseif ( 'textarea' == $type ) :
 		?>
 			<textarea id="<?php echo $option ?>" class="regular-text mb-3" name="<?php echo $option ?>" cols="30" rows="5"><?php echo $this->get_option( $option ) ?></textarea>
+		<?php
+			elseif ( 'title' == $type ) :
+		?>
+			<h3 class="field-title"><?php echo $label ?></h3>
 		<?php
 			else :
 		?>
