@@ -14,8 +14,24 @@ class WASP_Enqueue
 	 */
 	public function init()
 	{
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'scripts' ) );
 	}
+
+	/**
+	 * Handle styles
+	 *
+	 * @since WASP 1.0.0
+	 */
+	public function admin()
+	{
+		if ( ! is_admin() )
+			return;
+
+		wp_register_style( 'wasp-admin', plugin_dir_url( dirname( __DIR__ ) ) .'/assets/dist/css/admin.css' );
+		wp_enqueue_style( 'wasp-admin' );
+	}
+
 
 	/**
 	 * Enqueue Scripts
