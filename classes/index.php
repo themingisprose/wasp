@@ -15,6 +15,9 @@ require plugin_dir_path( __FILE__ ) .'/taxonomy/index.php';
 // Meta Boxes
 require plugin_dir_path( __FILE__ ) .'/meta-box/index.php';
 
+// Term Meta Boxes
+require plugin_dir_path( __FILE__ ) .'/term-meta/index.php';
+
 // General Plugin classes
 require plugin_dir_path( __FILE__ ) .'/general/index.php';
 
