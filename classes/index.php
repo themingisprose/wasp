@@ -17,3 +17,6 @@ require plugin_dir_path( __FILE__ ) .'/meta-box/index.php';
 
 // General Plugin classes
 require plugin_dir_path( __FILE__ ) .'/general/index.php';
+
+// Helper classes
+require plugin_dir_path( __FILE__ ) .'/helpers/index.php';
