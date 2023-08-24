@@ -8,7 +8,7 @@ abstract class WASP_Setting_Fields
 {
 
 	/**
-	 * Section ID
+	 * HTML section id
 	 * @access public
 	 *
 	 * @since WASP 1.0.0
@@ -16,7 +16,7 @@ abstract class WASP_Setting_Fields
 	public $section_id;
 
 	/**
-	 * Section Title
+	 * Section title
 	 * @access public
 	 *
 	 * @since WASP 1.0.0
@@ -24,7 +24,7 @@ abstract class WASP_Setting_Fields
 	public $section_title;
 
 	/**
-	 * Field ID
+	 * HTML field id
 	 * @access public
 	 *
 	 * @since WASP 1.0.0
@@ -40,7 +40,7 @@ abstract class WASP_Setting_Fields
 	public $field_title;
 
 	/**
-	 * WPML Filter
+	 * WPML Filter. Name of the filter returned by method fields()
 	 * @access public
 	 *
 	 * @since WASP 1.0.0
@@ -51,35 +51,16 @@ abstract class WASP_Setting_Fields
 
 	/**
 	 * Construct
-	 * @param string $section_id 	HTML section id
-	 * @param string $section_title Section title
-	 * @param string $field_id 		HTML field id
-	 * @param string $field_title 	Field title
-	 * @param string $wpml_field 	Name of the filter returned by method fields()
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public function __construct( $section_id = '', $section_title = '', $field_id = '', $field_title = '', $wpml_field = null )
+	public function __construct()
 	{
 		$admin = new WASP_Admin_Page;
 		$this->slug 			= $admin->slug;
 		$this->option_group 	= $admin->option_group;
 		$this->option_name 		= $admin->option_name;
 
-		$this->section_id 		= $section_id;
-		$this->section_title 	= $section_title;
-		$this->field_id 		= $field_id;
-		$this->field_title 		= $field_title;
-		$this->wpml_field 		= $wpml_field;
-	}
-
-	/**
-	 * Init
-	 *
-	 * @since WASP 1.0.0
-	 */
-	public function init()
-	{
 		add_action( 'admin_menu', array( $this, 'register_setting' ) );
 		add_filter( 'wasp_options_input', array( $this, 'validate' ) );
 		add_filter( $this->wpml_field, array( $this, 'wpml_field' ) );
@@ -296,10 +277,9 @@ abstract class WASP_Setting_Fields
 			endif;
 		endforeach;
 
-		// TODO: This generate an unexpected output.
-		// add_settings_error( 'wasp-update', 'wasp', __( 'Setting Updated', 'wasp' ), 'success' );
+		add_settings_error( 'wasp-update', 'wasp', __( 'Setting Updated', 'wasp' ), 'success' );
 
-		return array_merge( $input, $input );
+		return $input;
 	}
 
 	/**
