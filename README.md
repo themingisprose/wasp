@@ -22,23 +22,38 @@ add_filter( 'wasp_enable_admin_page', '__return_true' );
 ```
 
 ## Settings Fields
-Podemos agregar campos a la **Página de Administración** extendiendo la clase `WASP_Setting_Fields` y declarando el método `fields()` de dicha clase.
-
-### fields()
-Este método debe retornar un array asociativo.
+Podemos agregar campos a la **Página de Administración** creando una nueva clase que tenga la siguiente estructura:
 
 ```php
 class My_Class_Of_Fields extends WASP_Setting_Fields
 {
 
-	public function fields()
+	function __construct()
 	{
-        /**
-         * 'label' string		Nombre del campo
-         * 'option' string		Nombre a guardar en la base de datos
-         * 'type' string		Tipo de campo: 'text', 'url', 'email', 'textarera', 'content',
-         * 'lang' array			Array vacío
-         */
+		/**
+		 * string $section_id 		HTML section id
+		 * string $section_title 	Section title
+		 * string $field_id 		HTML field id
+		 * string $field_title 		Field title
+		 * string $wpml_field 		Name of the filter returned by method fields()
+		 */
+		parent::__construct();
+		$this->section_id 		= 'my-section-id';
+		$this->section_title 	= __( 'My section title', 'text-domain' );
+		$this->field_id 		= 'my-field-id';
+		$this->field_title 		= __( 'My field title', 'text-domain' );
+		$this->wpml_field		= 'my_class_of_fields_filters_fields';
+
+	}
+
+	function fields()
+	{
+		/**
+		 * 'label' string		Nombre del campo
+		 * 'option' string		Nombre a guardar en la base de datos
+		 * 'type' string		Tipo de campo: 'text', 'url', 'email', 'textarera', 'content',
+		 * 'lang' array			Array vacío
+		 */
 		$fields = array(
 			'field_a'	=> array(
 				'label'		=> __( 'Title', 'text-domain' ),
@@ -48,6 +63,7 @@ class My_Class_Of_Fields extends WASP_Setting_Fields
 			),
 			...
 		);
+
 		/**
 		 * Filters the fields
 		 * @param array $fields
@@ -55,25 +71,7 @@ class My_Class_Of_Fields extends WASP_Setting_Fields
 		return apply_filters( 'my_class_of_fields_filters_fields', $fields );
 	}
 }
-```
-### __construct() & init()
-Se debe inicializar la clase pasando los siguientes parámetros al constructor y luego llamar al método `init()`:
-```php
-/**
- * @param string $section_id 	HTML section id
- * @param string $section_title 	Section title
- * @param string $field_id 		HTML field id
- * @param string $field_title 	Field title
- * @param string $wpml_field 	Name of the filter returned by method fields()
- */
-$init = new My_Class_Of_Fields(
-			'my-section-id',
-			__( 'My section title', 'text-domain' ),
-			'my-field-id',
-			__( 'My field title', 'text-domain' ),
-			'my_class_of_fields_filters_fields'
-		);
-$init->init();
+new My_Class_Of_Fields;
 ```
 
 ## Subpágina de administración
@@ -300,3 +298,4 @@ Luego es recomendable cambiar algunas cosas para una mayor facilidad a la hora d
 7. Editar la cabecera del plugin según sea necesario.
 
 Es importante seguir estos pasos en el mismo orden que se muestran.
+
