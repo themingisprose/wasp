@@ -9,108 +9,295 @@ class WASP_Html
 
 	/**
 	 * Form fields to render
-	 * @param string $meta
-	 * @param string $value
-	 * @param string $label
-	 * @param string $type
-	 * @param array $select 	If $type = 'select', $select must be define as array
-	 * 							$select = array(
-	 * 								'value_01'	=> 'Label 01',
-	 * 								'value_02'	=> 'Label 02',
-	 * 								...
-	 * 							)
+	 * @param array $args 	Array of arguments to generate the form field
+	 * 						Accepted arguments:
+	 * 							$args['label']: 'Field label'
+	 * 							$args['meta']: 'field_meta'
+	 * 							$args['type']: Input type: title|button|color|date|datetime-local|
+	 * 							email|hidden|month|number|password|range|tel|text|time|url|week|
+	 * 							textarea|checkbox|radio|select|media|file.
+	 * 							If $args['type'] is equal to 'select' or 'input'
+	 * 							Default 'text'
+	 * 							$args['multiple']: Array used to define the values of field type
+	 * 							'radio', 'select' or 'range'.
+	 * 							For field type 'range' $args['multiple'] should be like
+	 * 							array( 'min' => '0', 'max' => '100', 'step' => '0' )
+	 *
+	 * @param string $value Default value
 	 *
 	 * @since WASP 1.0.0
 	 */
-	static function field( $meta, $value, $label, $type = null, $select = null )
+	public function field( $args, $value )
 	{
-		$type = ( isset( $type ) ) ? $type : 'text';
+		$defaults = array(
+			'type'	=> 'text'
+		);
+		$args = wp_parse_args( $args, $defaults );
+
+		echo '<div class="wasp-field field-'. $args['type'] .'">';
+			$this->title( $args );
+			$this->default( $args, $value );
+			$this->content( $args, $value );
+			$this->textarea( $args, $value );
+			$this->checkbox( $args, $value );
+			$this->radio( $args, $value );
+			$this->select( $args, $value );
+			$this->media( $args, $value );
+			$this->file( $args, $value );
+		echo '</div>';
+	}
+
+	/**
+	 * Title
+	 * @param array $args
+	 *
+	 * @since WASP 1.0.0
+	 */
+	function title( $args )
+	{
+		if ( 'title' != $args['type'] )
+			return;
+		?>
+			<h3><?php echo $args['label'] ?></h3>
+		<?php
+	}
+
+	/**
+	 * Defaults
+	 * @param array $args 	Array of arguments
+	 * @param string $value Default value
+	 *
+	 * @since WASP 1.0.0
+	 */
+	function default( $args, $value )
+	{
+		// Supported input types
+		$types = array(
+			'button',
+			'color',
+			'date',
+			'datetime-local',
+			'email',
+			'hidden',
+			'month',
+			'number',
+			'password',
+			'range',
+			'tel',
+			'text',
+			'time',
+			'url',
+			'week'
+		);
+		if ( ! in_array( $args['type'], $types ) )
+			return;
+
+		$min	= ( 'range' == $args['type'] && isset( $args['multiple']['min'] ) ) ? 'min="'. $args['multiple']['min'] .'"' : null;
+		$max	= ( 'range' == $args['type'] && isset( $args['multiple']['max'] ) ) ? 'max="'. $args['multiple']['max'] .'"' : null;
+		$step	= ( 'range' == $args['type'] && isset( $args['multiple']['step'] ) ) ? 'step="'. $args['multiple']['step'] .'"' : null;
+		$value 	= ( 'button' != $args['type'] ) ? $value : $args['label'];
+		$class 	= ( 'button' != $args['type'] ) ? 'regular-text' : 'button';
 	?>
-		<div class="mb-2">
-			<?php if ( 'checkbox' != $type && 'title' != $type ) : ?>
-			<p><label for="<?php echo $meta ?>" class="description d-block mb-2"><?php echo $label ?></label></p>
-			<?php endif ?>
-		<?php
-			if ( 'content' == $type ) :
-				$settings = array(
-					'media_buttons'	=> false,
-					'textarea_rows'	=> 7,
-					'teeny'			=> true,
-					'quicktags'		=> false,
-					'tinymce'		=> array(
-						'resize'				=> false,
-						'wordpress_adv_hidden'	=> false,
-						'add_unload_trigger'	=> false,
-						'statusbar'				=> false,
-						'wp_autoresize_on'		=> false,
-						'toolbar1'				=> 'bold,italic,underline,|,bullist,numlist,|,alignleft,aligncenter,alignright,|,link,unlink,|,undo,redo',
-					),
-				);
-				wp_editor( $value, $meta, $settings );
-			elseif ( 'textarea' == $type ) :
-		?>
-			<textarea id="<?php echo $meta ?>" class="regular-text mb-3" name="<?php echo $meta ?>" cols="30" rows="5"><?php echo $value ?></textarea>
-		<?php
-			elseif ( 'media' == $type ) :
-				$enqueue = new WASP_Enqueue();
-				$enqueue->media_upload();
-				$thumbnails = ( ! empty( $value ) ) ? array_unique( explode( ',', $value ) ) : null;
-		?>
-			<div id="media-uploader-<?php echo $meta ?>" class="media-uploader">
-				<div id="insert-media-wrapper-<?php echo $meta ?>" class="insert-media-wrapper" style="display: flex; justify-content: flex-start;">
-				<?php
-				if ( $thumbnails ) :
-					foreach ( $thumbnails as $id ) :
-				?>
-					<div id="thumbnail-<?php echo $id ?>" class="img-wrapper" style="display: flex; flex-direction: column; margin: .5rem">
-						<img src="<?php echo wp_get_attachment_image_url( $id ) ?>">
-						<small class="img-remover" style="color:#a00; cursor: pointer;" data-remove="<?php echo $id ?>"><?php _e( 'Remove', 'wasp' ) ?></small>
-					</div>
-				<?php
-					endforeach;
-				endif;
-				?>
+		<p><label for="<?php echo $args['meta'] ?>" class="description"><?php echo $args['label'] ?></label></p>
+		<input
+			id="<?php echo $args['meta'] ?>"
+			class="<?php echo $class ?>"
+			type="<?php echo $args['type'] ?>"
+			name="<?php echo $args['meta'] ?>"
+			value="<?php echo $value ?>"
+			<?php echo $min ?>
+			<?php echo $max ?>
+			<?php echo $step ?>
+		>
+	<?php
+	}
+
+	/**
+	 * Content
+	 * @param array $args 	Array of arguments
+	 * @param string $value Default value
+	 *
+	 * @since WASP 1.0.0
+	 */
+	function content( $args, $value )
+	{
+		if ( 'content' != $args['type'] )
+			return;
+	?>
+		<p><label for="<?php echo $args['meta'] ?>" class="description"><?php echo $args['label'] ?></label></p>
+	<?php
+		$settings = array(
+			'media_buttons'	=> false,
+			'textarea_rows'	=> 7,
+			'teeny'			=> true,
+			'quicktags'		=> false,
+			'tinymce'		=> array(
+				'resize'				=> false,
+				'wordpress_adv_hidden'	=> false,
+				'add_unload_trigger'	=> false,
+				'statusbar'				=> false,
+				'wp_autoresize_on'		=> false,
+				'toolbar1'				=> 'bold,italic,underline,|,bullist,numlist,|,alignleft,aligncenter,alignright,|,link,unlink,|,undo,redo',
+			),
+		);
+		wp_editor( $value, $args['meta'], $settings );
+	}
+
+	/**
+	 * Textarea
+	 * @param array $args 	Array of arguments
+	 * @param string $value Default value
+	 *
+	 * @since WASP 1.0.0
+	 */
+	function textarea( $args, $value )
+	{
+		if ( 'textarea' != $args['type'] )
+			return;
+	?>
+		<p><label for="<?php echo $args['meta'] ?>" class="description"><?php echo $args['label'] ?></label></p>
+		<textarea id="<?php echo $args['meta'] ?>" class="regular-text mb-3" name="<?php echo $args['meta'] ?>" cols="30" rows="5"><?php echo $value ?></textarea>
+	<?php
+	}
+
+	/**
+	 * Media
+	 * @param array $args 	Array of arguments
+	 * @param string $value Default value
+	 *
+	 * @since WASP 1.0.0
+	 */
+	function media( $args, $value )
+	{
+		if ( 'media' != $args['type'] )
+			return;
+
+			WASP_Enqueue::media_upload( true );
+			$thumbnails = ( ! empty( $value ) ) ? array_unique( explode( ',', $value ) ) : null;
+	?>
+		<p><label for="<?php echo $args['meta'] ?>" class="description"><?php echo $args['label'] ?></label></p>
+		<div id="media-uploader-<?php echo $args['meta'] ?>" class="media-uploader">
+			<div id="insert-media-wrapper-<?php echo $args['meta'] ?>" class="insert-media-wrapper" style="display: flex; justify-content: flex-start;">
+			<?php
+			if ( $thumbnails ) :
+				foreach ( $thumbnails as $id ) :
+			?>
+				<div id="thumbnail-<?php echo $id ?>" class="img-wrapper" style="display: flex; flex-direction: column; margin: .5rem">
+					<img src="<?php echo wp_get_attachment_image_url( $id ) ?>">
+					<small class="img-remover" style="color:#a00; cursor: pointer;" data-remove="<?php echo $id ?>"><?php _e( 'Remove', 'wasp' ) ?></small>
 				</div>
-				<input id="insert-media-input-<?php echo $meta ?>" class="insert-media-input regular-text mb-3" type="hidden" name="<?php echo $meta ?>" value="<?php echo $value ?>">
-				<button class="button insert-media-button" type="button" data-input="insert-media-input-<?php echo $meta ?>" data-wrapper="insert-media-wrapper-<?php echo $meta ?>">
-					<?php _e( 'Upload images', 'wasp' ) ?>
-				</button>
+			<?php
+				endforeach;
+			endif;
+			?>
 			</div>
-		<?php
-			elseif ( 'checkbox' == $type ) :
+			<input id="insert-media-input-<?php echo $args['meta'] ?>" class="insert-media-input regular-text mb-3" type="hidden" name="<?php echo $args['meta'] ?>" value="<?php echo $value ?>">
+			<button class="button insert-media-button" type="button" data-input="insert-media-input-<?php echo $args['meta'] ?>" data-wrapper="insert-media-wrapper-<?php echo $args['meta'] ?>">
+				<?php _e( 'Upload images', 'wasp' ) ?>
+			</button>
+		</div>
+	<?php
+	}
+
+	/**
+	 * File
+	 * @param array $args 	Array of arguments
+	 * @param string $value Default value
+	 *
+	 * @since WASP 1.0.0
+	 */
+	function file( $args, $value )
+	{
+		if ( 'file' != $args['type'] )
+			return;
+
+		WASP_Enqueue::file_upload( true );
+		$attach_url = wp_get_attachment_url( $value );
+	?>
+		<p><label for="insert-file-url-<?php echo $args['meta'] ?>" class="description"><?php echo $args['label'] ?></label></p>
+		<div id="file-uploader-<?php echo $args['meta'] ?>" class="file-uploader">
+			<input id="insert-file-input-<?php echo $args['meta'] ?>" class="insert-file-input mb-3" type="hidden" name="<?php echo $args['meta'] ?>" value="<?php echo $value ?>">
+			<input id="insert-file-url-<?php echo $args['meta'] ?>" class="insert-file-url mb-3" type="url" value="<?php echo $attach_url ?>">
+			<button class="button insert-file-button" type="button" data-input="insert-file-input-<?php echo $args['meta'] ?>" data-url="insert-file-url-<?php echo $args['meta'] ?>">
+				<?php _e( 'Upload file', 'wasp' ) ?>
+			</button>
+			<button class="button clear-file-button" type="button" data-input="insert-file-input-<?php echo $args['meta'] ?>" data-url="insert-file-url-<?php echo $args['meta'] ?>">
+				<?php _e( 'Clear', 'wasp' ) ?>
+			</button>
+		</div>
+	<?php
+	}
+
+	/**
+	 * Checkbox
+	 * @param array $args 	Array of arguments
+	 * @param string $value Default value
+	 *
+	 * @since WASP 1.0.0
+	 */
+	function checkbox( $args, $value )
+	{
+		if ( 'checkbox' != $args['type'] )
+			return;
 		?>
 			<label>
-				<input type="checkbox" name="<?php echo $meta ?>" value="1" <?php checked( $value, 1 ) ?>>
-				<?php echo $label ?>
+				<input type="checkbox" name="<?php echo $args['meta'] ?>" value="1" <?php checked( $value, 1 ) ?>>
+				<?php echo $args['label'] ?>
 			</label>
 		<?php
-			elseif ( 'select' == $type ) :
-				$option = ( ! is_array( $select ) ) ? __( 'No data available', 'wasp' ) : __( 'Select an option', 'wasp' );
+	}
+
+	/**
+	 * Checkbox
+	 * @param array $args 	Array of arguments
+	 * @param string $value Default value
+	 *
+	 * @since WASP 1.0.0
+	 */
+	function radio( $args, $value )
+	{
+		if ( 'radio' != $args['type'] )
+			return;
+
+		if ( is_array( $args['multiple'] ) ) :
+			foreach ( $args['multiple'] as $k => $v ) :
 		?>
-			<select id="<?php echo $meta ?>" name="<?php echo $meta ?>">
-				<option value=""><?php echo $option ?></option>
-				<?php
-				if ( is_array( $select ) ) :
-					foreach ( $select as $k => $v ) :
-				?>
-				<option value="<?php echo $k ?>" <?php selected( $k, $value ) ?>><?php echo $v ?></option>
-				<?php
-					endforeach;
-				endif;
-				?>
-			</select>
+		<p><label>
+			<input type="radio" name="<?php echo $args['meta'] ?>" value="<?php echo $k ?>" <?php checked( $k, $value ) ?>>
+			<?php echo $v ?>
+		</label></p>
 		<?php
-			elseif ( 'title' == $type ) :
-		?>
-			<h3 class="field-title"><?php echo $label ?></h3>
-		<?php
-			else :
-		?>
-			<input id="<?php echo $meta ?>" class="regular-text mb-3" type="<?php echo $type ?>" name="<?php echo $meta ?>" value='<?php echo $value ?>'>
-		<?php
+			endforeach;
+		endif;
+	}
+
+	/**
+	 * Select
+	 * @param array $args 	Array of arguments
+	 * @param string $value Default value
+	 *
+	 * @since WASP 1.0.0
+	 */
+	function select( $args, $value )
+	{
+		if ( 'select' != $args['type'] )
+			return;
+
+		$option = ( ! is_array( $args['multiple'] ) ) ? __( 'No data available', 'wasp' ) : __( 'Select an option', 'wasp' );
+	?>
+		<p><label for="<?php echo $args['meta'] ?>" class="description"><?php echo $args['label'] ?></label></p>
+		<select id="<?php echo $args['meta'] ?>" name="<?php echo $args['meta'] ?>">
+			<option value=""><?php echo $option ?></option>
+			<?php
+			if ( is_array( $args['multiple'] ) ) :
+				foreach ( $args['multiple'] as $k => $v ) :
+			?>
+			<option value="<?php echo $k ?>" <?php selected( $k, $value ) ?>><?php echo $v ?></option>
+			<?php
+				endforeach;
 			endif;
-		?>
-		</div>
+			?>
+		</select>
 	<?php
 	}
 }
