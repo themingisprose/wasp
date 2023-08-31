@@ -67,7 +67,7 @@ for( item of mediaUploader ){
 
 let mediaRemover = document.getElementsByClassName('img-remover');
 Array.from(mediaRemover).forEach(function(item){
-	item.onclick = function(event){
+	item.onclick = function(){
 
 		let parent 		= item.closest('.media-uploader');
 		let input 		= parent.getElementsByTagName('input');
