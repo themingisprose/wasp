@@ -8,12 +8,44 @@ class WASP_Admin_Page
 {
 
 	/**
-	 * Page slug
+	 * Page title
 	 * @access public
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public $slug;
+	public $page_title;
+
+	/**
+	 * Menu title
+	 * @access public
+	 *
+	 * @since WASP 1.0.0
+	 */
+	public $menu_title;
+
+	/**
+	 * Page heading
+	 * @access public
+	 *
+	 * @since WASP 1.0.0
+	 */
+	public $page_heading;
+
+	/**
+	 * Capability
+	 * @access public
+	 *
+	 * @since WASP 1.0.0
+	 */
+	public $capability;
+
+	/**
+	 * Menu slug
+	 * @access public
+	 *
+	 * @since WASP 1.0.0
+	 */
+	public $menu_slug;
 
 	/**
 	 * Option Group
@@ -32,24 +64,38 @@ class WASP_Admin_Page
 	public $option_name;
 
 	/**
+	 * Icon URL
+	 * @access public
+	 *
+	 * @since WASP 1.0.0
+	 */
+	public $icon_url;
+
+	/**
+	 * Position
+	 * @access public
+	 *
+	 * @since WASP 1.0.0
+	 */
+	public $position;
+
+	/**
 	 * Construct
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public function __construct()
+	function __construct()
 	{
-		$this->slug 			= 'wasp-setting';
-		$this->option_group 	= 'wasp_setting';
-		$this->option_name 		= 'wasp_options';
-	}
+		$this->page_title 	= __( 'WASP Admin Page', 'wasp' );
+		$this->menu_title 	= __( 'WASP', 'wasp' );
+		$this->page_heading	= __( 'WASP Dashboard', 'wasp' );
+		$this->capability 	= 'manage_options';
+		$this->menu_slug 	= 'wasp-setting';
+		$this->option_group = 'wasp_setting';
+		$this->option_name 	= 'wasp_options';
+		$this->icon_url 	= '';
+		$this->position 	= null;
 
-	/**
-	 * Init
-	 *
-	 * @since WASP 1.0.0
-	 */
-	public function init()
-	{
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 	}
 
@@ -58,25 +104,16 @@ class WASP_Admin_Page
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public function admin_menu()
+	function admin_menu()
 	{
-		/**
-		 * Filters if enabled the admin page
-		 * @param bool
-		 *
-		 * @since WASP 1.0.0
-		 */
-		if ( ! apply_filters( 'wasp_enable_admin_page', false ) )
-			return;
-
 		add_menu_page(
-			__( 'WASP Admin Page', 'wasp' ),
-			__( 'WASP', 'wasp' ),
-			'manage_options',
-			$this->slug,
+			$this->page_title,
+			$this->menu_title,
+			$this->capability,
+			$this->menu_slug,
 			array( $this, 'setting_options' ),
-			'',
-			2
+			$this->icon_url,
+			$this->position
 		);
 	}
 
@@ -85,16 +122,16 @@ class WASP_Admin_Page
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public function setting_options()
+	function setting_options()
 	{
 		?>
 			<div class="wrap">
-				<h2><?php _e( 'WASP Dashboard', 'wasp' ) ?></h2>
+				<h2><?php echo $this->page_heading ?></h2>
 				<?php settings_errors( 'wasp-update' ) ?>
-				<form id="<?php echo $this->slug ?>" method="post" action="options.php">
+				<form id="<?php echo $this->menu_slug ?>" method="post" action="options.php">
 					<?php
 						settings_fields( $this->option_group );
-						do_settings_sections( $this->slug );
+						do_settings_sections( $this->menu_slug );
 						submit_button();
 					?>
 				</form>
@@ -102,6 +139,3 @@ class WASP_Admin_Page
 		<?php
 	}
 }
-
-$init = new WASP_Admin_Page;
-$init->init();

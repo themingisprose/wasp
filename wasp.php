@@ -4,7 +4,7 @@
  * Description: Wow! Another starter plugin
  * Plugin URI: https://github.com/themingisprose/wasp
  * Author: RogerTM
- * Author URI: https://rogertm.dev
+ * Author URI: https://rogertm.com
  * Version: 1.0.0
  * License: GPL2
  * Text Domain: wasp
