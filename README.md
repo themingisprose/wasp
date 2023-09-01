@@ -1,6 +1,8 @@
 # WASP 🐝
 ### Woew! Another starter plugin
 
+> **NOTA**: Estamos trabajando en la versión [1.0.0](https://github.com/themingisprose/wasp/tree/1.0.0) de **WASP**, a su vez estamos escribiendo en una nueva y más amplia documentación asociada a esta nueva versión que puede ser visitada en este enlace 👉 https://github.com/themingisprose/wasp/wiki.
+
 **WASP** es un _starter_ plugin que facilita el desarrollo con WordPress.
 **WASP** tiene soporte para **WPML**.
 
