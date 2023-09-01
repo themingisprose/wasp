@@ -3,10 +3,10 @@
 let mediaUploader = document.getElementsByClassName('media-uploader');
 
 for( item of mediaUploader ){
-	let button 	= item.getElementsByTagName('button');
+	let button 	= item.querySelector('.insert-media-button');
 	var mediaFrame;
 
-	button[0].addEventListener('click', function(event){
+	button.addEventListener('click', function(event){
 		event.preventDefault();
 
 		var wrapperID 	= event.target.getAttribute('data-wrapper');

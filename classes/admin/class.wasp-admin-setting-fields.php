@@ -40,6 +40,30 @@ abstract class WASP_Setting_Fields
 	public $field_title;
 
 	/**
+	 * Page slug
+	 * @access public
+	 *
+	 * @since WASP 1.0.0
+	 */
+	public $slug;
+
+	/**
+	 * Option group
+	 * @access public
+	 *
+	 * @since WASP 1.0.0
+	 */
+	public $option_group;
+
+	/**
+	 * Option name
+	 * @access public
+	 *
+	 * @since WASP 1.0.0
+	 */
+	public $option_name;
+
+	/**
 	 * WPML Filter. Name of the filter returned by method fields()
 	 * @access public
 	 *
@@ -48,19 +72,13 @@ abstract class WASP_Setting_Fields
 	public $wpml_field;
 
 
-
 	/**
 	 * Construct
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public function __construct()
+	function __construct()
 	{
-		$admin = new WASP_Admin_Page;
-		$this->slug 			= $admin->slug;
-		$this->option_group 	= $admin->option_group;
-		$this->option_name 		= $admin->option_name;
-
 		add_action( 'admin_menu', array( $this, 'register_setting' ) );
 		add_filter( 'wasp_options_input', array( $this, 'validate' ) );
 		add_filter( $this->wpml_field, array( $this, 'wpml_field' ) );
@@ -71,7 +89,7 @@ abstract class WASP_Setting_Fields
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public function register_setting()
+	function register_setting()
 	{
 		register_setting(
 			$this->option_group,
@@ -102,7 +120,7 @@ abstract class WASP_Setting_Fields
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public function get_option( $option, $lang = false )
+	function get_option( $option, $lang = false )
 	{
 		if ( ! $option )
 			return;
@@ -119,7 +137,6 @@ abstract class WASP_Setting_Fields
 		endif;
 
 		return $value;
-
 	}
 
 	/**
@@ -127,7 +144,7 @@ abstract class WASP_Setting_Fields
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public function sanitize_options()
+	function sanitize_options()
 	{
 		/**
 		 * Filters the Options Input
@@ -144,7 +161,7 @@ abstract class WASP_Setting_Fields
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public function callback()
+	function callback()
 	{
 		return array( $this, 'render' );
 	}
@@ -154,74 +171,15 @@ abstract class WASP_Setting_Fields
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public function render()
+	function render()
 	{
+		$html = new WASP_Html;
 		$fields = $this->fields();
 
-		foreach ( $fields as $key => $value ) :
-			$type = ( isset( $value['type'] ) ) ? $value['type'] : 'text';
-			if ( ! empty( $value['lang'] ) ) :
-		?>
-				<h4 class="mt-0"><?php echo $value['label'] ?></h4>
-		<?php
-				foreach ( $value['lang'] as $code => $value ) :
-					$this->html( $value['option'], $value['label'], $type );
-				endforeach;
-			else :
-				$this->html( $value['option'], $value['label'], $type );
-			endif;
+		foreach ( $fields as $key => $data ) :
+			$value = $this->get_option( $data['meta'] );
+			$html->field( $data, $value );
 		endforeach;
-
-	}
-
-	/**
-	 * Form fields to render
-	 * @param string $option
-	 * @param string $label
-	 * @param string $type
-	 *
-	 * @since WASP 1.0.0
-	 */
-	public function html( $option, $label, $type = 'text' )
-	{
-	?>
-		<div class="mb-2">
-			<?php if ( 'title' != $type ) : ?>
-			<label for="<?php echo $option ?>" class="description d-block mb-2"><?php echo $label ?></label>
-			<?php endif ?>
-		<?php
-			if ( 'content' == $type ) :
-				$settings = array(
-					'media_buttons'	=> false,
-					'textarea_rows'	=> 7,
-					'teeny'			=> true,
-					'quicktags'		=> false,
-					'tinymce'		=> array(
-						'resize'				=> false,
-						'wordpress_adv_hidden'	=> false,
-						'add_unload_trigger'	=> false,
-						'statusbar'				=> false,
-						'wp_autoresize_on'		=> false,
-						'toolbar1'				=> 'bold,italic,underline,|,bullist,numlist,|,alignleft,aligncenter,alignright,|,link,unlink,|,undo,redo',
-					),
-				);
-				wp_editor( $this->get_option( $option ), $option, $settings );
-			elseif ( 'textarea' == $type ) :
-		?>
-			<textarea id="<?php echo $option ?>" class="regular-text mb-3" name="<?php echo $option ?>" cols="30" rows="5"><?php echo $this->get_option( $option ) ?></textarea>
-		<?php
-			elseif ( 'title' == $type ) :
-		?>
-			<h3 class="field-title"><?php echo $label ?></h3>
-		<?php
-			else :
-		?>
-			<input id="<?php echo $option ?>" class="regular-text mb-3" type="<?php echo $type ?>" name="<?php echo $option ?>" value="<?php echo $this->get_option( $option ) ?>">
-		<?php
-			endif;
-		?>
-		</div>
-	<?php
 	}
 
 	/**
@@ -229,7 +187,7 @@ abstract class WASP_Setting_Fields
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public function wpml_field( $fields ){
+	function wpml_field( $fields ){
 		if ( ! is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' ) )
 			return $fields;
 
@@ -256,22 +214,22 @@ abstract class WASP_Setting_Fields
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public function validate( $input )
+	function validate( $input )
 	{
 		$fields = $this->fields();
 
-		foreach ( $fields as $key => $value ) :
-			if ( ! empty( $value['lang'] ) ) :
-				foreach ( $value['lang'] as $code => $value ) :
-					if ( isset( $_POST[$value['option']] ) )
-						$input[$value['option']] = stripslashes( trim( $_POST[$value['option']] ) );
+		foreach ( $fields as $key => $data ) :
+			if ( ! empty( $data['lang'] ) ) :
+				foreach ( $data['lang'] as $code => $data ) :
+					if ( isset( $_POST[$data['meta']] ) )
+						$input[$data['meta']] = stripslashes( trim( $_POST[$data['meta']] ) );
 				endforeach;
 			else :
-				if ( isset( $_POST[$value['option']] ) ) :
-					if ( is_array( $_POST[$value['option']] ) ) :
-						$input[$value['option']] = array_map( 'trim', $_POST[$value['option']] );
+				if ( isset( $_POST[$data['meta']] ) ) :
+					if ( is_array( $_POST[$data['meta']] ) ) :
+						$input[$data['meta']] = array_map( 'trim', $_POST[$data['meta']] );
 					else :
-						$input[$value['option']] = stripslashes( trim( $_POST[$value['option']] ) );
+						$input[$data['meta']] = stripslashes( trim( $_POST[$data['meta']] ) );
 					endif;
 				endif;
 			endif;
