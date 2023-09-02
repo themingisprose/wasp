@@ -27,7 +27,7 @@ class WASP_Html
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public function field( $args, $value )
+	public static function field( $args, $value )
 	{
 		$defaults = array(
 			'type'	=> 'text'
@@ -35,15 +35,15 @@ class WASP_Html
 		$args = wp_parse_args( $args, $defaults );
 
 		echo '<div class="wasp-field field-'. $args['type'] .'">';
-			$this->title( $args );
-			$this->default( $args, $value );
-			$this->content( $args, $value );
-			$this->textarea( $args, $value );
-			$this->checkbox( $args, $value );
-			$this->radio( $args, $value );
-			$this->select( $args, $value );
-			$this->media( $args, $value );
-			$this->file( $args, $value );
+			static::title( $args );
+			static::default( $args, $value );
+			static::content( $args, $value );
+			static::textarea( $args, $value );
+			static::checkbox( $args, $value );
+			static::radio( $args, $value );
+			static::select( $args, $value );
+			static::media( $args, $value );
+			static::file( $args, $value );
 		echo '</div>';
 	}
 
@@ -53,7 +53,7 @@ class WASP_Html
 	 *
 	 * @since WASP 1.0.0
 	 */
-	function title( $args )
+	public static function title( $args )
 	{
 		if ( 'title' != $args['type'] )
 			return;
@@ -69,7 +69,7 @@ class WASP_Html
 	 *
 	 * @since WASP 1.0.0
 	 */
-	function default( $args, $value )
+	public static function default( $args, $value )
 	{
 		// Supported input types
 		$types = array(
@@ -119,7 +119,7 @@ class WASP_Html
 	 *
 	 * @since WASP 1.0.0
 	 */
-	function content( $args, $value )
+	public static function content( $args, $value )
 	{
 		if ( 'content' != $args['type'] )
 			return;
@@ -150,7 +150,7 @@ class WASP_Html
 	 *
 	 * @since WASP 1.0.0
 	 */
-	function textarea( $args, $value )
+	public static function textarea( $args, $value )
 	{
 		if ( 'textarea' != $args['type'] )
 			return;
@@ -167,7 +167,7 @@ class WASP_Html
 	 *
 	 * @since WASP 1.0.0
 	 */
-	function media( $args, $value )
+	public static function media( $args, $value )
 	{
 		if ( 'media' != $args['type'] )
 			return;
@@ -206,7 +206,7 @@ class WASP_Html
 	 *
 	 * @since WASP 1.0.0
 	 */
-	function file( $args, $value )
+	public static function file( $args, $value )
 	{
 		if ( 'file' != $args['type'] )
 			return;
@@ -235,7 +235,7 @@ class WASP_Html
 	 *
 	 * @since WASP 1.0.0
 	 */
-	function checkbox( $args, $value )
+	public static function checkbox( $args, $value )
 	{
 		if ( 'checkbox' != $args['type'] )
 			return;
@@ -254,7 +254,7 @@ class WASP_Html
 	 *
 	 * @since WASP 1.0.0
 	 */
-	function radio( $args, $value )
+	public static function radio( $args, $value )
 	{
 		if ( 'radio' != $args['type'] )
 			return;
@@ -278,7 +278,7 @@ class WASP_Html
 	 *
 	 * @since WASP 1.0.0
 	 */
-	function select( $args, $value )
+	public static function select( $args, $value )
 	{
 		if ( 'select' != $args['type'] )
 			return;
