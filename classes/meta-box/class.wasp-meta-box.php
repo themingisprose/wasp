@@ -111,12 +111,11 @@ abstract class WASP_Meta_Box
 	function render( WP_Post $post )
 	{
 		wp_nonce_field( $this->id .'_attr', $this->id .'_field' );
-		$html = new WASP_Html;
 		$fields = $this->fields();
 
 		foreach ( $fields as $key => $data ) :
 			$value = get_post_meta( $post->ID, $data['meta'], true );
-			$html->field( $data, $value );
+			WASP_Html::field( $data, $value );
 		endforeach;
 	}
 
@@ -158,12 +157,14 @@ abstract class WASP_Meta_Box
 	 * This method must return an associative array like the example
 	 * 		$fields = array(
 	 * 			'field_key_name' => array(
-	 * 				'label'	=> 'Field Name',
-	 * 				'meta'	=> 'field_option_name',
+	 * 				'label'		=> 'Field Name',
+	 * 				'option'	=> 'field_option_name',
+	 * 				'type'		=> 'text',
+	 * 				'multiple'	=> array()
 	 * 			),
 	 * 			...
 	 * 		);
-	 * @return array 		Array of fields
+	 * @see class WASP_Html::field() for full documentation of fields supported.
 	 *
 	 * @since WASP 1.0.0
 	 */

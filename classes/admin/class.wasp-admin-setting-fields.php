@@ -63,14 +63,6 @@ abstract class WASP_Setting_Fields
 	 */
 	public $option_name;
 
-	/**
-	 * WPML Filter. Name of the filter returned by method fields()
-	 * @access public
-	 *
-	 * @since WASP 1.0.0
-	 */
-	public $wpml_field;
-
 
 	/**
 	 * Construct
@@ -81,7 +73,6 @@ abstract class WASP_Setting_Fields
 	{
 		add_action( 'admin_menu', array( $this, 'register_setting' ) );
 		add_filter( 'wasp_options_input', array( $this, 'validate' ) );
-		add_filter( $this->wpml_field, array( $this, 'wpml_field' ) );
 	}
 
 	/**
@@ -115,28 +106,14 @@ abstract class WASP_Setting_Fields
 
 	/**
 	 * Main configuration function
-	 * @param string $option 	Option stored in wasp_options in the data base option table. Optional
-	 * @param bool $lang 		Filter by current language if WPML is active
+	 * @param string $meta 	Meta key stored in wasp_options in the data base option table.
 	 *
 	 * @since WASP 1.0.0
 	 */
-	function get_option( $option, $lang = false )
+	function get_option( $meta )
 	{
-		if ( ! $option )
-			return;
-
-		$value = get_option( $this->option_name );
-
-		if ( $option ) :
-			if ( is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' ) && $lang ) :
-				$current_lang = apply_filters( 'wpml_current_language', NULL );
-				$value = $value[$option .'_'. $current_lang];
-			else :
-				$value = $value[$option];
-			endif;
-		endif;
-
-		return $value;
+		$option = get_option( $this->option_name );
+		return $option[$meta];
 	}
 
 	/**
@@ -173,40 +150,12 @@ abstract class WASP_Setting_Fields
 	 */
 	function render()
 	{
-		$html = new WASP_Html;
 		$fields = $this->fields();
 
 		foreach ( $fields as $key => $data ) :
 			$value = $this->get_option( $data['meta'] );
-			$html->field( $data, $value );
+			WASP_Html::field( $data, $value );
 		endforeach;
-	}
-
-	/**
-	 * Add languages field if WPML is installed and activated
-	 *
-	 * @since WASP 1.0.0
-	 */
-	function wpml_field( $fields ){
-		if ( ! is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' ) )
-			return $fields;
-
-		$languages = apply_filters( 'wpml_active_languages', NULL );
-		foreach ( $languages as $lang ) :
-			foreach ( $fields as $key => $value ) :
-				if ( isset( $fields[$key]['lang'] ) ) :
-					$option = array(
-								$lang['code'] => array(
-									'label'		=> $lang['translated_name'],
-									'option' 	=> $value['option'] .'_'. $lang['code'],
-								),
-							);
-					$fields[$key]['lang'] = ( is_array( $fields[$key]['lang'] ) ) ? array_merge_recursive( $fields[$key]['lang'], array_slice( $option, -1 ) ) : null;
-				endif;
-			endforeach;
-		endforeach;
-
-		return $fields;
 	}
 
 	/**
@@ -218,21 +167,10 @@ abstract class WASP_Setting_Fields
 	{
 		$fields = $this->fields();
 
-		foreach ( $fields as $key => $data ) :
-			if ( ! empty( $data['lang'] ) ) :
-				foreach ( $data['lang'] as $code => $data ) :
-					if ( isset( $_POST[$data['meta']] ) )
-						$input[$data['meta']] = stripslashes( trim( $_POST[$data['meta']] ) );
-				endforeach;
-			else :
-				if ( isset( $_POST[$data['meta']] ) ) :
-					if ( is_array( $_POST[$data['meta']] ) ) :
-						$input[$data['meta']] = array_map( 'trim', $_POST[$data['meta']] );
-					else :
-						$input[$data['meta']] = stripslashes( trim( $_POST[$data['meta']] ) );
-					endif;
-				endif;
-			endif;
+		foreach ( $fields as $key => $value ) :
+			$input[$value['meta']] = isset( $_POST[$value['meta']] )
+										? stripslashes( trim( $_POST[$value['meta']] ) )
+										: null;
 		endforeach;
 
 		add_settings_error( 'wasp-update', 'wasp', __( 'Setting Updated', 'wasp' ), 'success' );
@@ -247,9 +185,12 @@ abstract class WASP_Setting_Fields
 	 * 			'field_key_name' => array(
 	 * 				'label'		=> 'Field Name',
 	 * 				'option'	=> 'field_option_name',
+	 * 				'type'		=> 'text',
+	 * 				'multiple'	=> array()
 	 * 			),
 	 * 			...
 	 * 		);
+	 * @see class WASP_Html::field() for full documentation of fields supported.
 	 * @return array 		Array of fields
 	 *
 	 * @since WASP 1.0.0
