@@ -4,7 +4,10 @@
  */
 
 // Admin classes
-require plugin_dir_path( __FILE__ ) .'/admin/index.php';
+require plugin_dir_path( __FILE__ ) .'/admin-page/index.php';
+
+// Setting Fields classes
+require plugin_dir_path( __FILE__ ) .'/setting-fields/index.php';
 
 // Custom Post Type classes
 require plugin_dir_path( __FILE__ ) .'/post-type/index.php';
