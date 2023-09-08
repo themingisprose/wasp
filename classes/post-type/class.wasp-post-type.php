@@ -30,12 +30,13 @@ abstract class WASP_Custom_Post_Type
 	 */
 	public $args = array();
 
+
  	/**
- 	 * Init
+ 	 * Constructor
  	 *
  	 * @since WASP 1.0.0
  	 */
- 	public function init()
+ 	function __construct()
  	{
  		add_action( 'init', array( $this, 'register_post_type' ) );
  		register_activation_hook( __FILE__, array( $this, 'flush' ) );
@@ -47,7 +48,7 @@ abstract class WASP_Custom_Post_Type
  	 *
  	 * @since WASP 1.0.0
  	 */
- 	public function register_post_type()
+ 	function register_post_type()
  	{
  		$labels = array( 'labels' => $this->labels );
  		$args = array_merge( $labels, $this->args );
@@ -59,7 +60,7 @@ abstract class WASP_Custom_Post_Type
  	 *
  	 * @since WASP 1.0.0
  	 */
- 	public function flush()
+ 	function flush()
  	{
  		$this->register_post_type();
 
@@ -69,10 +70,11 @@ abstract class WASP_Custom_Post_Type
  	/**
  	 * Unregister CPT
  	 * @param array $post_types 	Array of CPT to unregister
+ 	 * @todo Check this out.
  	 *
  	 * @since WASP 1.0.0
  	 */
- 	public function unregister_post_type( $post_types )
+ 	function unregister_post_type( $post_types )
  	{
  		/**
  		 * Filter CPT to unregister
