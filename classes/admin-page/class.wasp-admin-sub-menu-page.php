@@ -4,7 +4,7 @@
  *
  * @since WASP 1.0.0
  */
-abstract class WASP_Admin_Sub_Page
+abstract class WASP_Admin_Sub_Menu_Page
 {
 	/**
 	 * Parent slug
@@ -23,12 +23,20 @@ abstract class WASP_Admin_Sub_Page
 	public $page_title;
 
 	/**
-	 * Manu Title
+	 * Menu Title
 	 * @access public
 	 *
 	 * @since WASP 1.0.0
 	 */
 	public $menu_title;
+
+	/**
+	 * Capability
+	 * @access public
+	 *
+	 * @since WASP 1.0.0
+	 */
+	public $capability;
 
 	/**
 	 * Dashboard Title
@@ -63,11 +71,20 @@ abstract class WASP_Admin_Sub_Page
 	public $option_name;
 
 	/**
-	 * Init
+	 * Option Name
+	 * @access public
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public function init()
+	public $position;
+
+
+	/**
+	 * Constructor
+	 *
+	 * @since WASP 1.0.0
+	 */
+	function __construct()
 	{
 		add_action( 'admin_menu', array( $this, 'admin_sub_menu' ) );
 	}
@@ -77,15 +94,16 @@ abstract class WASP_Admin_Sub_Page
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public function admin_sub_menu()
+	function admin_sub_menu()
 	{
 		add_submenu_page(
 			$this->parent_slug,
 			$this->page_title,
 			$this->menu_title,
-			'manage_options',
+			$this->capability,
 			$this->menu_slug,
-			array( $this, 'setting_options' )
+			array( $this, 'setting_options' ),
+			$this->position
 		);
 	}
 
@@ -94,7 +112,7 @@ abstract class WASP_Admin_Sub_Page
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public function setting_options()
+	function setting_options()
 	{
 		?>
 			<div class="wrap">

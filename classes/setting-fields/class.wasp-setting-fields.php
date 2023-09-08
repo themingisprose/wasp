@@ -85,7 +85,7 @@ abstract class WASP_Setting_Fields
 		register_setting(
 			$this->option_group,
 			$this->option_name,
-			array( $this, 'sanitize_options' )
+			array( 'type' => 'array', 'sanitize_callback' => array( $this, 'sanitize_options' ) )
 		);
 
 		add_settings_section(
@@ -173,9 +173,10 @@ abstract class WASP_Setting_Fields
 										: null;
 		endforeach;
 
-		add_settings_error( 'wasp-update', 'wasp', __( 'Setting Updated', 'wasp' ), 'success' );
+		// TODO: This generate an unexpected output.
+		// add_settings_error( 'wasp-update', 'wasp', __( 'Setting Updated', 'wasp' ), 'success' );
 
-		return $input;
+		return array_merge( $input, $input );
 	}
 
 	/**
