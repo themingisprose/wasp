@@ -33,7 +33,7 @@ abstract class WASP_Meta_Box
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public $screens;
+	public $screen = null;
 
 	/**
 	 * The context within the screens where the box should display
@@ -42,7 +42,7 @@ abstract class WASP_Meta_Box
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public $context;
+	public $context = 'advanced';
 
 	/**
 	 * The priority within the context where the box should show
@@ -51,7 +51,7 @@ abstract class WASP_Meta_Box
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public $priority;
+	public $priority = 'default';
 
 	/**
 	 * Data that should be set as the $args property of the box array
@@ -60,7 +60,7 @@ abstract class WASP_Meta_Box
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public $callback_args;
+	public $callback_args = null;
 
 	/**
 	 * Constructor
