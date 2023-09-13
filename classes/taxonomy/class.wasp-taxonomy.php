@@ -10,6 +10,7 @@ abstract class WASP_Taxonomy
 	/**
 	 * Taxonomy slug
 	 * @access public
+	 * @var string
 	 *
 	 * @since WASP 1.0.0
 	 */
@@ -18,14 +19,16 @@ abstract class WASP_Taxonomy
 	/**
 	 * Post Type slug
 	 * @access public
+	 * @var array|string
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public $post_type;
+	public $object_type;
 
 	/**
 	 * Labels
 	 * @access public
+	 * @var array
 	 *
 	 * @since WASP 1.0.0
 	 */
@@ -34,17 +37,18 @@ abstract class WASP_Taxonomy
 	/**
 	 * Arguments
 	 * @access public
+	 * @var array
 	 *
 	 * @since WASP 1.0.0
 	 */
 	public $args = array();
 
 	/**
-	 * Init
+	 * Constructor
  	 *
  	 * @since WASP 1.0.0
 	 */
- 	public function init()
+ 	function __construct()
  	{
  		add_action( 'init', array( $this, 'register_taxonomy' ) );
  	}
@@ -54,10 +58,10 @@ abstract class WASP_Taxonomy
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public function register_taxonomy()
+	function register_taxonomy()
 	{
  		$labels = array( 'labels' => $this->labels );
  		$args = array_merge( $labels, $this->args );
- 		register_taxonomy( $this->taxonomy, $this->post_type, $args );
+ 		register_taxonomy( $this->taxonomy, $this->object_type, $args );
 	}
 }
