@@ -45,7 +45,7 @@ abstract class WASP_Term_Meta
 	 *
 	 * @since WASP 1.0.0
 	 */
-	function render( WP_Term $term )
+	function render( $term )
 	{
 		$fields = $this->fields();
 
