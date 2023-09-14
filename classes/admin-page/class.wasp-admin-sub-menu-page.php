@@ -6,9 +6,11 @@
  */
 abstract class WASP_Admin_Sub_Menu_Page
 {
+
 	/**
 	 * Parent slug
 	 * @access public
+	 * @var string 	Required
 	 *
 	 * @since WASP 1.0.0
 	 */
@@ -17,6 +19,7 @@ abstract class WASP_Admin_Sub_Menu_Page
 	/**
 	 * Page Title
 	 * @access public
+	 * @var string 	Required
 	 *
 	 * @since WASP 1.0.0
 	 */
@@ -25,6 +28,7 @@ abstract class WASP_Admin_Sub_Menu_Page
 	/**
 	 * Menu Title
 	 * @access public
+	 * @var string 	Required
 	 *
 	 * @since WASP 1.0.0
 	 */
@@ -33,50 +37,47 @@ abstract class WASP_Admin_Sub_Menu_Page
 	/**
 	 * Capability
 	 * @access public
+	 * @var string 	Required
 	 *
 	 * @since WASP 1.0.0
 	 */
 	public $capability;
 
 	/**
-	 * Dashboard Title
-	 * @access public
-	 *
-	 * @since WASP 1.0.0
-	 */
-	public $dashboard_title;
-
-	/**
 	 * Manu slug
 	 * @access public
+	 * @var string 	Required
 	 *
 	 * @since WASP 1.0.0
 	 */
 	public $menu_slug;
 
 	/**
+	 * Option Name
+	 * @access public
+	 * @var int|float Optional
+	 *
+	 * @since WASP 1.0.0
+	 */
+	public $position = null;
+
+	/**
+	 * Dashboard Title
+	 * @access public
+	 * @var string 	Optional
+	 *
+	 * @since WASP 1.0.0
+	 */
+	public $dashboard_title;
+
+	/**
 	 * Option Group
 	 * @access public
+	 * @var string 	Required
 	 *
 	 * @since WASP 1.0.0
 	 */
 	public $option_group;
-
-	/**
-	 * Option Name
-	 * @access public
-	 *
-	 * @since WASP 1.0.0
-	 */
-	public $option_name;
-
-	/**
-	 * Option Name
-	 * @access public
-	 *
-	 * @since WASP 1.0.0
-	 */
-	public $position;
 
 
 	/**

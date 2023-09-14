@@ -8,48 +8,9 @@ abstract class WASP_Setting_Fields
 {
 
 	/**
-	 * HTML section id
-	 * @access public
-	 *
-	 * @since WASP 1.0.0
-	 */
-	public $section_id;
-
-	/**
-	 * Section title
-	 * @access public
-	 *
-	 * @since WASP 1.0.0
-	 */
-	public $section_title;
-
-	/**
-	 * HTML field id
-	 * @access public
-	 *
-	 * @since WASP 1.0.0
-	 */
-	public $field_id;
-
-	/**
-	 * Field Title
-	 * @access public
-	 *
-	 * @since WASP 1.0.0
-	 */
-	public $field_title;
-
-	/**
-	 * Page slug
-	 * @access public
-	 *
-	 * @since WASP 1.0.0
-	 */
-	public $slug;
-
-	/**
 	 * Option group
 	 * @access public
+	 * @var string 	Required
 	 *
 	 * @since WASP 1.0.0
 	 */
@@ -58,10 +19,56 @@ abstract class WASP_Setting_Fields
 	/**
 	 * Option name
 	 * @access public
+	 * @var string 	Required
 	 *
 	 * @since WASP 1.0.0
 	 */
 	public $option_name;
+
+	/**
+	 * HTML section id
+	 * @access public
+	 * @var string 	Required
+	 *
+	 * @since WASP 1.0.0
+	 */
+	public $section_id;
+
+	/**
+	 * Section title
+	 * @access public
+	 * @var string 	Required
+	 *
+	 * @since WASP 1.0.0
+	 */
+	public $section_title;
+
+	/**
+	 * Page slug
+	 * @access public
+	 * @var string 	Required
+	 *
+	 * @since WASP 1.0.0
+	 */
+	public $slug;
+
+	/**
+	 * HTML field id
+	 * @access public
+	 * @var string 	Required
+	 *
+	 * @since WASP 1.0.0
+	 */
+	public $field_id;
+
+	/**
+	 * Field Title
+	 * @access public
+	 * @var string 	Required
+	 *
+	 * @since WASP 1.0.0
+	 */
+	public $field_title;
 
 
 	/**

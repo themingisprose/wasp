@@ -9,6 +9,7 @@ abstract class WASP_Custom_Post_Type
 	/**
 	 * Post Type slug
 	 * @access public
+	 * @var string 	Required
 	 *
 	 * @since WASP 1.0.0
 	 */
@@ -17,6 +18,7 @@ abstract class WASP_Custom_Post_Type
 	/**
 	 * Labels
 	 * @access public
+	 * @var array 	Optional
 	 *
 	 * @since WASP 1.0.0
 	 */
@@ -25,6 +27,7 @@ abstract class WASP_Custom_Post_Type
 	/**
 	 * Arguments
 	 * @access public
+	 * @var array 	Optional
 	 *
 	 * @since WASP 1.0.0
 	 */

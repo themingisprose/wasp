@@ -10,7 +10,7 @@ abstract class WASP_Term_Meta
 	/**
 	 * Taxonomy
 	 * @access public
-	 * @var string
+	 * @var string 	Required
 	 *
 	 * @since WASP 1.0.0
 	 */

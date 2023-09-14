@@ -4,12 +4,13 @@
  *
  * @since WASP 1.0.0
  */
-class WASP_Admin_Page
+abstract class WASP_Admin_Page
 {
 
 	/**
 	 * Page title
 	 * @access public
+	 * @var string 	Required
 	 *
 	 * @since WASP 1.0.0
 	 */
@@ -18,22 +19,16 @@ class WASP_Admin_Page
 	/**
 	 * Menu title
 	 * @access public
+	 * @var string 	Required
 	 *
 	 * @since WASP 1.0.0
 	 */
 	public $menu_title;
 
 	/**
-	 * Page heading
-	 * @access public
-	 *
-	 * @since WASP 1.0.0
-	 */
-	public $page_heading;
-
-	/**
 	 * Capability
 	 * @access public
+	 * @var string 	Required
 	 *
 	 * @since WASP 1.0.0
 	 */
@@ -42,42 +37,47 @@ class WASP_Admin_Page
 	/**
 	 * Menu slug
 	 * @access public
+	 * @var string 	Required
 	 *
 	 * @since WASP 1.0.0
 	 */
 	public $menu_slug;
 
 	/**
-	 * Option Group
-	 * @access public
-	 *
-	 * @since WASP 1.0.0
-	 */
-	public $option_group;
-
-	/**
-	 * Option Name
-	 * @access public
-	 *
-	 * @since WASP 1.0.0
-	 */
-	public $option_name;
-
-	/**
 	 * Icon URL
 	 * @access public
+	 * @var string 	Optional
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public $icon_url;
+	public $icon_url = '';
 
 	/**
 	 * Position
 	 * @access public
+	 * @var string 	Optional
 	 *
 	 * @since WASP 1.0.0
 	 */
-	public $position;
+	public $position = null;
+
+	/**
+	 * Page heading
+	 * @access public
+	 * @var string 	Optional
+	 *
+	 * @since WASP 1.0.0
+	 */
+	public $page_heading;
+
+	/**
+	 * Option Group
+	 * @access public
+	 * @var string 	Required
+	 *
+	 * @since WASP 1.0.0
+	 */
+	public $option_group;
 
 	/**
 	 * Construct
@@ -86,16 +86,6 @@ class WASP_Admin_Page
 	 */
 	function __construct()
 	{
-		$this->page_title 	= __( 'WASP Admin Page', 'wasp' );
-		$this->menu_title 	= __( 'WASP', 'wasp' );
-		$this->page_heading	= __( 'WASP Dashboard', 'wasp' );
-		$this->capability 	= 'manage_options';
-		$this->menu_slug 	= 'wasp-setting';
-		$this->option_group = 'wasp_setting';
-		$this->option_name 	= 'wasp_options';
-		$this->icon_url 	= '';
-		$this->position 	= null;
-
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 	}
 

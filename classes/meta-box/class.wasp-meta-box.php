@@ -4,14 +4,13 @@
  *
  * @since WASP 1.0.0
  */
-
 abstract class WASP_Meta_Box
 {
 
 	/**
 	 * Meta box ID
 	 * @access public
-	 * @var string
+	 * @var string 	Required
 	 *
 	 * @since WASP 1.0.0
 	 */
@@ -20,7 +19,7 @@ abstract class WASP_Meta_Box
 	/**
 	 * Title of the meta box
 	 * @access public
-	 * @var string
+	 * @var string 	Required
 	 *
 	 * @since WASP 1.0.0
 	 */
@@ -29,7 +28,7 @@ abstract class WASP_Meta_Box
 	/**
 	 * The screens or screens on which to show the box
 	 * @access public
-	 * @var string|array
+	 * @var string|array Optional
 	 *
 	 * @since WASP 1.0.0
 	 */
@@ -38,7 +37,7 @@ abstract class WASP_Meta_Box
 	/**
 	 * The context within the screens where the box should display
 	 * @access public
-	 * @var string
+	 * @var string Optional
 	 *
 	 * @since WASP 1.0.0
 	 */
@@ -47,7 +46,7 @@ abstract class WASP_Meta_Box
 	/**
 	 * The priority within the context where the box should show
 	 * @access public
-	 * @var string
+	 * @var string Optional
 	 *
 	 * @since WASP 1.0.0
 	 */
@@ -56,7 +55,7 @@ abstract class WASP_Meta_Box
 	/**
 	 * Data that should be set as the $args property of the box array
 	 * @access public
-	 * @var array
+	 * @var array Optional
 	 *
 	 * @since WASP 1.0.0
 	 */
@@ -84,7 +83,7 @@ abstract class WASP_Meta_Box
 			$this->id,
 			$this->title,
 			$this->callback(),
-			$this->screens,
+			$this->screen,
 			$this->context,
 			$this->priority,
 			$this->callback_args
