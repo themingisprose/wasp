@@ -21,6 +21,9 @@ require plugin_dir_path( __FILE__ ) .'/meta-box/index.php';
 // Term Meta Boxes
 require plugin_dir_path( __FILE__ ) .'/term-meta/index.php';
 
+// User Meta Boxes
+require plugin_dir_path( __FILE__ ) .'/user-meta/index.php';
+
 // General Plugin classes
 require plugin_dir_path( __FILE__ ) .'/general/index.php';
 
