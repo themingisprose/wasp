@@ -30,7 +30,7 @@
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) )
-    die;
+	die;
 
 /**
  * Set text domain
@@ -45,5 +45,4 @@ add_action( 'plugins_loaded', 'wasp_textdomain' );
 /**
  * Include files
  */
-require plugin_dir_path( __FILE__ ) .'/classes/index.php';
 require plugin_dir_path( __FILE__ ) .'/inc/index.php';
