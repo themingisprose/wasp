@@ -172,19 +172,19 @@ class WASP_Html
 		if ( 'media' != $args['type'] )
 			return;
 
-			WASP_Enqueue::media_upload( true );
-			$thumbnails = ( ! empty( $value ) ) ? array_unique( explode( ',', $value ) ) : null;
+		WASP_Enqueue::media_upload( true );
+		$thumbnails = ( ! empty( $value ) ) ? array_unique( explode( ',', $value ) ) : null;
 	?>
 		<p><label for="<?php echo $args['meta'] ?>" class="description"><?php echo $args['label'] ?></label></p>
-		<div id="media-uploader-<?php echo $args['meta'] ?>" class="media-uploader">
+		<div id="media-uploader-<?php echo $args['meta'] ?>" class="wasp-media-uploader" data-btn="insert-media-btn-<?php echo $args['meta'] ?>">
 			<div id="insert-media-wrapper-<?php echo $args['meta'] ?>" class="insert-media-wrapper" style="display: flex; justify-content: flex-start;">
 			<?php
 			if ( $thumbnails ) :
 				foreach ( $thumbnails as $id ) :
 			?>
-				<div id="thumbnail-<?php echo $id ?>" class="img-wrapper" style="display: flex; flex-direction: column; margin: .5rem">
+				<div id="thumbnail-<?php echo $args['meta'] .'-'. $id ?>" class="img-wrapper" style="display: flex; flex-direction: column; margin: .5rem">
 					<img src="<?php echo wp_get_attachment_image_url( $id ) ?>">
-					<small class="img-remover" style="color:#a00; cursor: pointer;" data-remove="<?php echo $id ?>"><?php _e( 'Remove', 'wasp' ) ?></small>
+					<small class="img-remover" data-remove="thumbnail-<?php echo $args['meta'] .'-'. $id ?>" data-thumbnail-id="<?php echo $id ?>" style="color:#a00; cursor: pointer;"><?php _e( 'Remove', 'wasp' ) ?></small>
 				</div>
 			<?php
 				endforeach;
@@ -192,7 +192,7 @@ class WASP_Html
 			?>
 			</div>
 			<input id="insert-media-input-<?php echo $args['meta'] ?>" class="insert-media-input regular-text mb-3" type="hidden" name="<?php echo $args['meta'] ?>" value="<?php echo $value ?>">
-			<button class="button insert-media-button" type="button" data-input="insert-media-input-<?php echo $args['meta'] ?>" data-wrapper="insert-media-wrapper-<?php echo $args['meta'] ?>">
+			<button id="insert-media-btn-<?php echo $args['meta'] ?>" class="button insert-media-button" type="button" data-input="insert-media-input-<?php echo $args['meta'] ?>" data-wrapper="insert-media-wrapper-<?php echo $args['meta'] ?>">
 				<?php _e( 'Upload images', 'wasp' ) ?>
 			</button>
 		</div>
@@ -215,7 +215,7 @@ class WASP_Html
 		$attach_url = wp_get_attachment_url( $value );
 	?>
 		<p><label for="insert-file-url-<?php echo $args['meta'] ?>" class="description"><?php echo $args['label'] ?></label></p>
-		<div id="file-uploader-<?php echo $args['meta'] ?>" class="file-uploader">
+		<div id="file-uploader-<?php echo $args['meta'] ?>" class="wasp-file-uploader">
 			<input id="insert-file-input-<?php echo $args['meta'] ?>" class="insert-file-input mb-3" type="hidden" name="<?php echo $args['meta'] ?>" value="<?php echo $value ?>">
 			<input id="insert-file-url-<?php echo $args['meta'] ?>" class="insert-file-url mb-3" type="url" value="<?php echo $attach_url ?>">
 			<button class="button insert-file-button" type="button" data-input="insert-file-input-<?php echo $args['meta'] ?>" data-url="insert-file-url-<?php echo $args['meta'] ?>">

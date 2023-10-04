@@ -26,7 +26,7 @@ class WASP_Enqueue
 	static public function media_upload()
 	{
 		wp_enqueue_media();
-		wp_register_script( 'wasp-media-upload', plugin_dir_url( dirname( __DIR__ ) ) .'assets/src/js/media-upload.js', array(), null, true );
+		wp_register_script( 'wasp-media-upload', plugin_dir_url( dirname( __DIR__ ) ) .'assets/js/media-upload.js', array(), null, true );
 		$l10n = array(
 			'media_frame_windows_title'	=> __( 'Select images', 'wasp' ),
 			'media_frame_button_title'	=> __( 'Create gallery', 'wasp' )
@@ -45,7 +45,7 @@ class WASP_Enqueue
 	static public function file_upload()
 	{
 		wp_enqueue_media();
-		wp_register_script( 'wasp-file-upload', plugin_dir_url( dirname( __DIR__ ) ) .'assets/src/js/file-upload.js', array(), null, true );
+		wp_register_script( 'wasp-file-upload', plugin_dir_url( dirname( __DIR__ ) ) .'assets/js/file-upload.js', array(), null, true );
 		$l10n = array(
 			'file_frame_windows_title'	=> __( 'Select file', 'wasp' ),
 			'file_frame_button_title'	=> __( 'Use this file', 'wasp' )
