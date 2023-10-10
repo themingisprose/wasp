@@ -76,4 +76,4 @@ for( let i = 0; i < mediaRemover.length; i++ ){
 		}
 		input[0].value = ids.toString();
 	})
-};
+}

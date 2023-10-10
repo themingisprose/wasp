@@ -79,7 +79,6 @@ abstract class WASP_Setting_Fields
 	function __construct()
 	{
 		add_action( 'admin_menu', array( $this, 'register_setting' ) );
-		add_filter( 'wasp_options_input', array( $this, 'validate' ) );
 	}
 
 	/**
@@ -92,7 +91,7 @@ abstract class WASP_Setting_Fields
 		register_setting(
 			$this->option_group,
 			$this->option_name,
-			array( 'type' => 'array', 'sanitize_callback' => array( $this, 'sanitize_options' ) )
+			array( 'sanitize_callback' => array( $this, 'sanitize_options' ) )
 		);
 
 		add_settings_section(
@@ -136,7 +135,7 @@ abstract class WASP_Setting_Fields
 		 *
 		 * @since WASP 1.0.0
 		 */
-		return apply_filters( 'wasp_options_input', array() );
+		return apply_filters( 'wasp_setting_fields_options_input', $this->validate() );
 	}
 
 	/**
@@ -170,20 +169,19 @@ abstract class WASP_Setting_Fields
 	 *
 	 * @since WASP 1.0.0
 	 */
-	function validate( $input )
+	function validate()
 	{
 		$fields = $this->fields();
 
 		foreach ( $fields as $key => $value ) :
-			$input[$value['meta']] = isset( $_POST[$value['meta']] )
+			$input[$value['meta']] = ( isset( $_POST[$value['meta']] ) && null !== $_POST[$value['meta']] )
 										? stripslashes( trim( $_POST[$value['meta']] ) )
 										: null;
 		endforeach;
 
-		// TODO: This generate an unexpected output.
-		// add_settings_error( 'wasp-update', 'wasp', __( 'Setting Updated', 'wasp' ), 'success' );
+		add_settings_error( 'wasp-update', 'wasp', __( 'Setting Updated', 'wasp' ), 'success' );
 
-		return array_merge( $input, $input );
+		return $input;
 	}
 
 	/**
