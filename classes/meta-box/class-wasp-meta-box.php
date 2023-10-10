@@ -1,10 +1,14 @@
 <?php
+namespace WASP\Posts;
+
+use WASP\Helpers\HTML;
+
 /**
  * Meta Boxes
  *
  * @since WASP 1.0.0
  */
-abstract class WASP_Meta_Box
+abstract class Meta_Box
 {
 
 	/**
@@ -107,14 +111,14 @@ abstract class WASP_Meta_Box
 	 *
 	 * @since WASP 1.0.0
 	 */
-	function render( WP_Post $post )
+	function render( \WP_Post $post )
 	{
 		wp_nonce_field( $this->id .'_attr', $this->id .'_field' );
 		$fields = $this->fields();
 
 		foreach ( $fields as $key => $data ) :
 			$value = get_post_meta( $post->ID, $data['meta'], true );
-			WASP_Html::field( $data, $value );
+			HTML::field( $data, $value );
 		endforeach;
 	}
 

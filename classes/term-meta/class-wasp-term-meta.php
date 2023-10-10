@@ -1,10 +1,14 @@
 <?php
+namespace WASP\Taxonomy;
+
+use WASP\Helpers\HTML;
+
 /**
  * Term Meta
  *
  * @since WASP 1.0.0
  */
-abstract class WASP_Term_Meta
+abstract class Term_Meta
 {
 
 	/**
@@ -99,7 +103,7 @@ abstract class WASP_Term_Meta
 			echo $th_end;
 			echo $td;
 
-			WASP_Html::field( $args, $value );
+			HTML::field( $args, $value );
 
 			echo $td_end;
 		echo $tr_end;

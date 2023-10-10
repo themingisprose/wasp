@@ -1,10 +1,14 @@
 <?php
+namespace WASP\Helpers;
+
+use WASP\Helpers\Enqueue;
+
 /**
  * Helper. HTML Form Field
  *
  * @since WASP 1.0.0
  */
-class WASP_Html
+class HTML
 {
 
 	/**
@@ -172,7 +176,7 @@ class WASP_Html
 		if ( 'media' != $args['type'] )
 			return;
 
-		WASP_Enqueue::media_upload( true );
+		Enqueue::media_upload( true );
 		$thumbnails = ( ! empty( $value ) ) ? array_unique( explode( ',', $value ) ) : null;
 	?>
 		<p><label for="<?php echo $args['meta'] ?>" class="description"><?php echo $args['label'] ?></label></p>
@@ -211,7 +215,7 @@ class WASP_Html
 		if ( 'file' != $args['type'] )
 			return;
 
-		WASP_Enqueue::file_upload( true );
+		Enqueue::file_upload( true );
 		$attach_url = wp_get_attachment_url( $value );
 	?>
 		<p><label for="insert-file-url-<?php echo $args['meta'] ?>" class="description"><?php echo $args['label'] ?></label></p>

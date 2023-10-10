@@ -1,10 +1,12 @@
 <?php
+namespace WASP\Helpers;
+
 /**
  * Enqueue scripts and styles
  *
  * @since WASP 1.0.0
  */
-class WASP_Enqueue
+class Enqueue
 {
 
 	/**

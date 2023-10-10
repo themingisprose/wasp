@@ -1,10 +1,12 @@
 <?php
+namespace WASP\Posts;
+
 /**
  * Custom Post Type
  *
  * @since WASP 1.0.0
  */
-abstract class WASP_Custom_Post_Type
+abstract class Custom_Post_Type
 {
 	/**
 	 * Post Type slug
@@ -43,7 +45,6 @@ abstract class WASP_Custom_Post_Type
  	{
  		add_action( 'init', array( $this, 'register_post_type' ) );
  		register_activation_hook( __FILE__, array( $this, 'flush' ) );
- 		add_action( 'init', array( $this, 'unregister_post_type' ) );
  	}
 
  	/**
@@ -68,29 +69,5 @@ abstract class WASP_Custom_Post_Type
  		$this->register_post_type();
 
  		flush_rewrite_rules();
- 	}
-
- 	/**
- 	 * Unregister CPT
- 	 * @param array $post_types 	Array of CPT to unregister
- 	 * @todo Check this out.
- 	 *
- 	 * @since WASP 1.0.0
- 	 */
- 	function unregister_post_type( $post_types )
- 	{
- 		/**
- 		 * Filter CPT to unregister
- 		 * @param array $post_types 	Array of CPT to unregister
- 		 *
- 		 * @since WASP 1.0.0
- 		 */
- 		$post_types = apply_filters( 'wasp_unregister_post_types', $post_types );
-
- 		if ( ! is_array( $post_types ) )
- 			return;
-
- 		foreach ( $post_types as $cpt )
- 			unregister_post_type( $cpt );
  	}
 }

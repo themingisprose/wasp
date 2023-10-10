@@ -1,10 +1,12 @@
 <?php
+namespace WASP\Admin;
+
 /**
  * Admin Page
  *
  * @since WASP 1.0.0
  */
-abstract class WASP_Admin_Page
+abstract class Admin_Page
 {
 
 	/**

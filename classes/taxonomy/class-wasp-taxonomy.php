@@ -1,10 +1,12 @@
 <?php
+namespace WASP\Taxonomy;
+
 /**
  * Custom Taxonomy
  *
  * @since WASP 1.0.0
  */
-abstract class WASP_Taxonomy
+abstract class Taxonomy
 {
 
 	/**

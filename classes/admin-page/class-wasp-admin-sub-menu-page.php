@@ -1,10 +1,12 @@
 <?php
+namespace WASP\Admin;
+
 /**
  * Admin Sub Page
  *
  * @since WASP 1.0.0
  */
-abstract class WASP_Admin_Sub_Menu_Page
+abstract class Admin_Sub_Menu_Page
 {
 
 	/**

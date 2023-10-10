@@ -1,10 +1,14 @@
 <?php
+namespace WASP\Users;
+
+use WASP\Helpers\HTML;
+
 /**
  * User Meta
  *
  * @since WASP 1.0.0
  */
-abstract class WASP_User_Meta
+abstract class User_Meta
 {
 
 	/**
@@ -71,7 +75,7 @@ abstract class WASP_User_Meta
 				<label for="<?php echo $data['meta'] ?>"><?php echo $data['label'] ?></label>
 			</th>
 			<td>
-				<?php WASP_Html::field( $data, $value ); ?>
+				<?php HTML::field( $data, $value ); ?>
 			</td>
 		</tr>
 	<?php

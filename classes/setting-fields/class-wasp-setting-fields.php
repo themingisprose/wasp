@@ -1,10 +1,14 @@
 <?php
+namespace WASP\Setting_Fields;
+
+use WASP\Helpers\HTML;
+
 /**
  * Setting Fields
  *
  * @since WASP 1.0.0
  */
-abstract class WASP_Setting_Fields
+abstract class Setting_Fields
 {
 
 	/**
@@ -160,7 +164,7 @@ abstract class WASP_Setting_Fields
 
 		foreach ( $fields as $key => $data ) :
 			$value = $this->get_option( $data['meta'] );
-			WASP_Html::field( $data, $value );
+			HTML::field( $data, $value );
 		endforeach;
 	}
 
