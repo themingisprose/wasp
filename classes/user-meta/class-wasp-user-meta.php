@@ -60,8 +60,8 @@ abstract class User_Meta
 
 	/**
 	 * Form fields to render
-	 * @param string $args 	This parameter is described in class WASP_Html::field method
-	 * @param string $value	This parameter is described in class WASP_Html::field method
+	 * @param string $args 	This parameter is described in class WASP\Helpers\HTML::field() method
+	 * @param string $value	This parameter is described in class WASP\Helpers\HTML::field() method
 	 *
 	 * @since WASP 1.0.0
 	 */
@@ -106,12 +106,15 @@ abstract class User_Meta
 	 * This method must return an associative array like the example
 	 * 		$fields = array(
 	 * 			'field_key_name' => array(
-	 * 				'label'	=> 'Field Name',
-	 * 				'meta'	=> 'field_option_name',
+	 * 				'label'		=> 'Field Name',
+	 * 				'option'	=> 'field_option_name',
+	 * 				'type'		=> 'text',
+	 * 				'multiple'	=> array()
 	 * 			),
 	 * 			...
 	 * 		);
-	 * @return array 		Array of fields
+	 * @see class WASP\Helpers\HTML::field() for full documentation about supported fields.
+	 * @return array 	Array of fields
 	 *
 	 * @since WASP 1.0.0
 	 */

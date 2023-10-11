@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WASP
+ * Plugin Name: WASP 🐝
  * Description: Wow! Another starter plugin
  * Plugin URI: https://github.com/themingisprose/wasp
  * Author: RogerTM

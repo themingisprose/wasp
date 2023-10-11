@@ -116,7 +116,7 @@ abstract class Setting_Fields
 
 	/**
 	 * Main configuration function
-	 * @param string $meta 	Meta key stored in wasp_options in the data base option table.
+	 * @param string $meta 	Meta key stored in '$this->option_name' register in the data base option table.
 	 *
 	 * @since WASP 1.0.0
 	 */
@@ -200,8 +200,8 @@ abstract class Setting_Fields
 	 * 			),
 	 * 			...
 	 * 		);
-	 * @see class WASP_Html::field() for full documentation of fields supported.
-	 * @return array 		Array of fields
+	 * @see class WASP\Helpers\HTML::field() for full documentation about supported fields.
+	 * @return array 	Array of fields
 	 *
 	 * @since WASP 1.0.0
 	 */

@@ -124,7 +124,7 @@ abstract class Meta_Box
 
 	/**
 	 * Save the data
-	 * @param int $post_id 			Required. Current post ID
+	 * @param int $post_id 	Required. Current post ID
 	 *
 	 * @since WASP 1.0.0
 	 */
@@ -167,7 +167,7 @@ abstract class Meta_Box
 	 * 			),
 	 * 			...
 	 * 		);
-	 * @see class WASP_Html::field() for full documentation of fields supported.
+	 * @see class WASP\Helpers\HTML::field() for full documentation about supported fields.
 	 *
 	 * @since WASP 1.0.0
 	 */
