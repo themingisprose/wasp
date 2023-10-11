@@ -6,7 +6,7 @@ use WASP\Helpers\HTML;
 /**
  * Meta Boxes
  *
- * @since WASP 1.0.0
+ * @since 1.0.0
  */
 abstract class Meta_Box
 {
@@ -16,7 +16,7 @@ abstract class Meta_Box
 	 * @access public
 	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $id;
 
@@ -25,7 +25,7 @@ abstract class Meta_Box
 	 * @access public
 	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $title;
 
@@ -34,7 +34,7 @@ abstract class Meta_Box
 	 * @access public
 	 * @var string|array Optional
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $screen = null;
 
@@ -43,7 +43,7 @@ abstract class Meta_Box
 	 * @access public
 	 * @var string Optional
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $context = 'advanced';
 
@@ -52,7 +52,7 @@ abstract class Meta_Box
 	 * @access public
 	 * @var string Optional
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $priority = 'default';
 
@@ -61,14 +61,14 @@ abstract class Meta_Box
 	 * @access public
 	 * @var array Optional
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $callback_args = null;
 
 	/**
 	 * Constructor
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	function __construct()
 	{
@@ -79,7 +79,7 @@ abstract class Meta_Box
 	/**
 	 * Adds a meta box
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	function meta_box()
 	{
@@ -98,7 +98,7 @@ abstract class Meta_Box
 	 * Get the callable that will the content of the meta box.
 	 * @return callable
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	function callback()
 	{
@@ -109,7 +109,7 @@ abstract class Meta_Box
 	 * Render the content of the meta box.
 	 * @param WP_Post $post 		Required. Post object.
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	function render( \WP_Post $post )
 	{
@@ -126,7 +126,7 @@ abstract class Meta_Box
 	 * Save the data
 	 * @param int $post_id 	Required. Current post ID
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	function save_meta( $post_id )
 	{
@@ -169,7 +169,7 @@ abstract class Meta_Box
 	 * 		);
 	 * @see class WASP\Helpers\HTML::field() for full documentation about supported fields.
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	abstract public function fields();
 

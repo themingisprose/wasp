@@ -4,7 +4,7 @@ namespace WASP\Admin;
 /**
  * Admin Sub Page
  *
- * @since WASP 1.0.0
+ * @since 1.0.0
  */
 abstract class Admin_Sub_Menu_Page
 {
@@ -14,7 +14,7 @@ abstract class Admin_Sub_Menu_Page
 	 * @access public
 	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $parent_slug;
 
@@ -23,7 +23,7 @@ abstract class Admin_Sub_Menu_Page
 	 * @access public
 	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $page_title;
 
@@ -32,7 +32,7 @@ abstract class Admin_Sub_Menu_Page
 	 * @access public
 	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $menu_title;
 
@@ -41,7 +41,7 @@ abstract class Admin_Sub_Menu_Page
 	 * @access public
 	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $capability;
 
@@ -50,7 +50,7 @@ abstract class Admin_Sub_Menu_Page
 	 * @access public
 	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $menu_slug;
 
@@ -59,7 +59,7 @@ abstract class Admin_Sub_Menu_Page
 	 * @access public
 	 * @var int|float Optional
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $position = null;
 
@@ -68,7 +68,7 @@ abstract class Admin_Sub_Menu_Page
 	 * @access public
 	 * @var string 	Optional
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $dashboard_title;
 
@@ -77,7 +77,7 @@ abstract class Admin_Sub_Menu_Page
 	 * @access public
 	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $option_group;
 
@@ -85,7 +85,7 @@ abstract class Admin_Sub_Menu_Page
 	/**
 	 * Constructor
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	function __construct()
 	{
@@ -95,7 +95,7 @@ abstract class Admin_Sub_Menu_Page
 	/**
 	 * Admin Sub Menu
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	function admin_sub_menu()
 	{
@@ -113,7 +113,7 @@ abstract class Admin_Sub_Menu_Page
 	/**
 	 * Setting Options
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	function setting_options()
 	{

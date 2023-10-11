@@ -6,7 +6,7 @@ use WASP\Helpers\HTML;
 /**
  * Setting Fields
  *
- * @since WASP 1.0.0
+ * @since 1.0.0
  */
 abstract class Setting_Fields
 {
@@ -16,7 +16,7 @@ abstract class Setting_Fields
 	 * @access public
 	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $option_group;
 
@@ -25,7 +25,7 @@ abstract class Setting_Fields
 	 * @access public
 	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $option_name;
 
@@ -34,7 +34,7 @@ abstract class Setting_Fields
 	 * @access public
 	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $section_id;
 
@@ -43,7 +43,7 @@ abstract class Setting_Fields
 	 * @access public
 	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $section_title;
 
@@ -52,7 +52,7 @@ abstract class Setting_Fields
 	 * @access public
 	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $slug;
 
@@ -61,7 +61,7 @@ abstract class Setting_Fields
 	 * @access public
 	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $field_id;
 
@@ -70,7 +70,7 @@ abstract class Setting_Fields
 	 * @access public
 	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $field_title;
 
@@ -78,7 +78,7 @@ abstract class Setting_Fields
 	/**
 	 * Construct
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	function __construct()
 	{
@@ -88,7 +88,7 @@ abstract class Setting_Fields
 	/**
 	 * Register Setting
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	function register_setting()
 	{
@@ -118,7 +118,7 @@ abstract class Setting_Fields
 	 * Main configuration function
 	 * @param string $meta 	Meta key stored in '$this->option_name' register in the data base option table.
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	function get_option( $meta )
 	{
@@ -129,7 +129,7 @@ abstract class Setting_Fields
 	/**
 	 * Sanitize Callback
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	function sanitize_options()
 	{
@@ -137,7 +137,7 @@ abstract class Setting_Fields
 		 * Filters the Options Input
 		 * @param array 	Array of key => value
 		 *
-		 * @since WASP 1.0.0
+		 * @since 1.0.0
 		 */
 		return apply_filters( 'wasp_setting_fields_options_input', $this->validate() );
 	}
@@ -146,7 +146,7 @@ abstract class Setting_Fields
 	 * Get the callable that will the content of the section.
 	 * @return callable
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	function callback()
 	{
@@ -156,7 +156,7 @@ abstract class Setting_Fields
 	/**
 	 * Render the content of the section
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	function render()
 	{
@@ -171,7 +171,7 @@ abstract class Setting_Fields
 	/**
 	 * Process validation fields
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	function validate()
 	{
@@ -203,7 +203,7 @@ abstract class Setting_Fields
 	 * @see class WASP\Helpers\HTML::field() for full documentation about supported fields.
 	 * @return array 	Array of fields
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	abstract public function fields();
 }

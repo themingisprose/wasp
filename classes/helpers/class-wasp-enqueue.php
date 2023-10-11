@@ -4,7 +4,7 @@ namespace WASP\Helpers;
 /**
  * Enqueue scripts and styles
  *
- * @since WASP 1.0.0
+ * @since 1.0.0
  */
 class Enqueue
 {
@@ -12,7 +12,7 @@ class Enqueue
 	/**
 	 * Constructor
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	function __construct()
 	{
@@ -23,7 +23,7 @@ class Enqueue
 	/**
 	 * Enqueue Media Upload
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	static public function media_upload()
 	{
@@ -42,7 +42,7 @@ class Enqueue
 	/**
 	 * Enqueue File Upload
 	 *
-	 * @since WASP Admin 1.0.0
+	 * @since 1.0.0
 	 */
 	static public function file_upload()
 	{

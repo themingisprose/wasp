@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) )
 /**
  * Set text domain
  *
- * @since WASP 1.0.0
+ * @since 1.0.0
  */
 function wasp_textdomain(){
 	load_plugin_textdomain( 'wasp', false, basename( dirname( __FILE__ ) ) . '/languages/' );

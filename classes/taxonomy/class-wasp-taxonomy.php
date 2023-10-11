@@ -4,7 +4,7 @@ namespace WASP\Taxonomy;
 /**
  * Custom Taxonomy
  *
- * @since WASP 1.0.0
+ * @since 1.0.0
  */
 abstract class Taxonomy
 {
@@ -14,7 +14,7 @@ abstract class Taxonomy
 	 * @access public
 	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $taxonomy;
 
@@ -23,7 +23,7 @@ abstract class Taxonomy
 	 * @access public
 	 * @var array|string Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $object_type;
 
@@ -32,7 +32,7 @@ abstract class Taxonomy
 	 * @access public
 	 * @var array 	Optional
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $labels = array();
 
@@ -41,14 +41,14 @@ abstract class Taxonomy
 	 * @access public
 	 * @var array 	Optional
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $args = array();
 
 	/**
 	 * Constructor
  	 *
- 	 * @since WASP 1.0.0
+ 	 * @since 1.0.0
 	 */
  	function __construct()
  	{
@@ -58,7 +58,7 @@ abstract class Taxonomy
 	/**
 	 * Register Taxonomy
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	function register_taxonomy()
 	{

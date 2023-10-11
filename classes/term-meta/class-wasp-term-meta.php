@@ -6,7 +6,7 @@ use WASP\Helpers\HTML;
 /**
  * Term Meta
  *
- * @since WASP 1.0.0
+ * @since 1.0.0
  */
 abstract class Term_Meta
 {
@@ -16,14 +16,14 @@ abstract class Term_Meta
 	 * @access public
 	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $taxonomy;
 
 	/**
 	 * Constructor
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	function __construct()
 	{
@@ -33,7 +33,7 @@ abstract class Term_Meta
 	/**
 	 * Initializes hooks
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	function init()
 	{
@@ -47,7 +47,7 @@ abstract class Term_Meta
 	 * Render the content of the meta box.
 	 * @param object $term 	Current term.
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	function render( $term )
 	{
@@ -67,7 +67,7 @@ abstract class Term_Meta
 	 * @param string $args 	This parameter is described in class WASP\Helpers\HTML::field() method
 	 * @param string $value	This parameter is described in class WASP\Helpers\HTML::field() method
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	function html( $args, $value )
 	{
@@ -113,7 +113,7 @@ abstract class Term_Meta
 	 * Save the Term Meta
 	 * @param int $term_id 	Current term.
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	function save_meta( $term_id )
 	{
@@ -143,7 +143,7 @@ abstract class Term_Meta
 	 * @see class WASP\Helpers\HTML::field() for full documentation about supported fields.
 	 * @return array 	Array of fields
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	abstract public function fields();
 }

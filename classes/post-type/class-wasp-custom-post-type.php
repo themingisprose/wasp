@@ -4,7 +4,7 @@ namespace WASP\Posts;
 /**
  * Custom Post Type
  *
- * @since WASP 1.0.0
+ * @since 1.0.0
  */
 abstract class Custom_Post_Type
 {
@@ -13,7 +13,7 @@ abstract class Custom_Post_Type
 	 * @access public
 	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $post_type;
 
@@ -22,7 +22,7 @@ abstract class Custom_Post_Type
 	 * @access public
 	 * @var array 	Optional
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $labels = array();
 
@@ -31,7 +31,7 @@ abstract class Custom_Post_Type
 	 * @access public
 	 * @var array 	Optional
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $args = array();
 
@@ -39,7 +39,7 @@ abstract class Custom_Post_Type
  	/**
  	 * Constructor
  	 *
- 	 * @since WASP 1.0.0
+ 	 * @since 1.0.0
  	 */
  	function __construct()
  	{
@@ -50,7 +50,7 @@ abstract class Custom_Post_Type
  	/**
  	 * Register CPT
  	 *
- 	 * @since WASP 1.0.0
+ 	 * @since 1.0.0
  	 */
  	function register_post_type()
  	{
@@ -62,7 +62,7 @@ abstract class Custom_Post_Type
  	/**
  	 * Flush rewrite rules
  	 *
- 	 * @since WASP 1.0.0
+ 	 * @since 1.0.0
  	 */
  	function flush()
  	{

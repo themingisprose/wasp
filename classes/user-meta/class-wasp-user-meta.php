@@ -6,7 +6,7 @@ use WASP\Helpers\HTML;
 /**
  * User Meta
  *
- * @since WASP 1.0.0
+ * @since 1.0.0
  */
 abstract class User_Meta
 {
@@ -16,7 +16,7 @@ abstract class User_Meta
 	 * @access protected
 	 * @var object
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	protected $user_id;
 
@@ -63,7 +63,7 @@ abstract class User_Meta
 	 * @param string $args 	This parameter is described in class WASP\Helpers\HTML::field() method
 	 * @param string $value	This parameter is described in class WASP\Helpers\HTML::field() method
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	function html( $data, $value )
 	{
@@ -86,7 +86,7 @@ abstract class User_Meta
 	 * Save the user meta
 	 * @param object $user_id
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	function save( $user_id )
 	{
@@ -116,7 +116,7 @@ abstract class User_Meta
 	 * @see class WASP\Helpers\HTML::field() for full documentation about supported fields.
 	 * @return array 	Array of fields
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	abstract public function fields();
 

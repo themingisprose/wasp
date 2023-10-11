@@ -2,7 +2,7 @@
 /**
  * Class Autoloader 101
  *
- * @since WASP 1.0.0
+ * @since 1.0.0
  */
 spl_autoload_register( function( $class ){
 	$directories = glob( plugin_dir_path( __FILE__ ) .'classes/*', GLOB_ONLYDIR );

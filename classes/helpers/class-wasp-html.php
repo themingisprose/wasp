@@ -6,7 +6,7 @@ use WASP\Helpers\Enqueue;
 /**
  * Helper. HTML Form Field
  *
- * @since WASP 1.0.0
+ * @since 1.0.0
  */
 class HTML
 {
@@ -29,7 +29,7 @@ class HTML
 	 *
 	 * @param string $value Default value
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public static function field( $args, $value )
 	{
@@ -55,7 +55,7 @@ class HTML
 	 * Title
 	 * @param array $args
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public static function title( $args )
 	{
@@ -71,7 +71,7 @@ class HTML
 	 * @param array $args 	Array of arguments
 	 * @param string $value Default value
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public static function default( $args, $value )
 	{
@@ -121,7 +121,7 @@ class HTML
 	 * @param array $args 	Array of arguments
 	 * @param string $value Default value
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public static function content( $args, $value )
 	{
@@ -152,7 +152,7 @@ class HTML
 	 * @param array $args 	Array of arguments
 	 * @param string $value Default value
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public static function textarea( $args, $value )
 	{
@@ -169,7 +169,7 @@ class HTML
 	 * @param array $args 	Array of arguments
 	 * @param string $value Default value
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public static function media( $args, $value )
 	{
@@ -208,7 +208,7 @@ class HTML
 	 * @param array $args 	Array of arguments
 	 * @param string $value Default value
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public static function file( $args, $value )
 	{
@@ -237,7 +237,7 @@ class HTML
 	 * @param array $args 	Array of arguments
 	 * @param string $value Default value
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public static function checkbox( $args, $value )
 	{
@@ -256,7 +256,7 @@ class HTML
 	 * @param array $args 	Array of arguments
 	 * @param string $value Default value
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public static function radio( $args, $value )
 	{
@@ -280,7 +280,7 @@ class HTML
 	 * @param array $args 	Array of arguments
 	 * @param string $value Default value
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public static function select( $args, $value )
 	{
