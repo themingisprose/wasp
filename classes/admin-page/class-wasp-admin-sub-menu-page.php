@@ -1,73 +1,93 @@
 <?php
+namespace WASP\Admin;
+
 /**
  * Admin Sub Page
  *
- * @since WASP 1.0.0
+ * @since 1.0.0
  */
-abstract class WASP_Admin_Sub_Page
+abstract class Admin_Sub_Menu_Page
 {
+
 	/**
 	 * Parent slug
 	 * @access public
+	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $parent_slug;
 
 	/**
 	 * Page Title
 	 * @access public
+	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $page_title;
 
 	/**
-	 * Manu Title
+	 * Menu Title
 	 * @access public
+	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $menu_title;
 
 	/**
-	 * Dashboard Title
+	 * Capability
 	 * @access public
+	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
-	public $dashboard_title;
+	public $capability;
 
 	/**
 	 * Manu slug
 	 * @access public
+	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $menu_slug;
 
 	/**
+	 * Option Name
+	 * @access public
+	 * @var int|float Optional
+	 *
+	 * @since 1.0.0
+	 */
+	public $position = null;
+
+	/**
+	 * Dashboard Title
+	 * @access public
+	 * @var string 	Optional
+	 *
+	 * @since 1.0.0
+	 */
+	public $dashboard_title;
+
+	/**
 	 * Option Group
 	 * @access public
+	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $option_group;
 
-	/**
-	 * Option Name
-	 * @access public
-	 *
-	 * @since WASP 1.0.0
-	 */
-	public $option_name;
 
 	/**
-	 * Init
+	 * Constructor
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
-	public function init()
+	function __construct()
 	{
 		add_action( 'admin_menu', array( $this, 'admin_sub_menu' ) );
 	}
@@ -75,26 +95,27 @@ abstract class WASP_Admin_Sub_Page
 	/**
 	 * Admin Sub Menu
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
-	public function admin_sub_menu()
+	function admin_sub_menu()
 	{
 		add_submenu_page(
 			$this->parent_slug,
 			$this->page_title,
 			$this->menu_title,
-			'manage_options',
+			$this->capability,
 			$this->menu_slug,
-			array( $this, 'setting_options' )
+			array( $this, 'setting_options' ),
+			$this->position
 		);
 	}
 
 	/**
 	 * Setting Options
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
-	public function setting_options()
+	function setting_options()
 	{
 		?>
 			<div class="wrap">

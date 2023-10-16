@@ -1,10 +1,10 @@
 <?php
 /**
- * Plugin Name: WASP
+ * Plugin Name: WASP 🐝
  * Description: Wow! Another starter plugin
  * Plugin URI: https://github.com/themingisprose/wasp
  * Author: RogerTM
- * Author URI: https://rogertm.dev
+ * Author URI: https://rogertm.com
  * Version: 1.0.0
  * License: GPL2
  * Text Domain: wasp
@@ -30,12 +30,12 @@
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) )
-    die;
+	die;
 
 /**
  * Set text domain
  *
- * @since WASP 1.0.0
+ * @since 1.0.0
  */
 function wasp_textdomain(){
 	load_plugin_textdomain( 'wasp', false, basename( dirname( __FILE__ ) ) . '/languages/' );
@@ -45,5 +45,4 @@ add_action( 'plugins_loaded', 'wasp_textdomain' );
 /**
  * Include files
  */
-require plugin_dir_path( __FILE__ ) .'/classes/index.php';
-require plugin_dir_path( __FILE__ ) .'/inc/index.php';
+require plugin_dir_path( __FILE__ ) .'/autoloader.php';

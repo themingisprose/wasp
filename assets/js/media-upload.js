@@ -1,24 +1,15 @@
 // Media upload
+let mediaUploader = document.getElementsByClassName('wasp-media-uploader');
 
-let mediaUploader = document.getElementsByClassName('media-uploader');
+for( let i = 0; i < mediaUploader.length; i++ ){
+	item 	= mediaUploader[i];
+	let btn = item.getElementsByClassName('insert-media-button');
 
-for( item of mediaUploader ){
-	let button 	= item.getElementsByTagName('button');
-	var mediaFrame;
-
-	button[0].addEventListener('click', function(event){
-		event.preventDefault();
-
-		var wrapperID 	= event.target.getAttribute('data-wrapper');
-		var inputID 	= event.target.getAttribute('data-input');
+	btn[0].addEventListener('click', function(){
+		var wrapperID 	= this.getAttribute('data-wrapper');
+		var inputID 	= this.getAttribute('data-input');
 		wrapper			= document.getElementById(wrapperID);
 		input			= document.getElementById(inputID);
-
-		// Check for media manager instance
-		if(mediaFrame){
-			mediaFrame.open();
-			return;
-		}
 
 		// configuration of the media manager new instance
 		mediaFrame = wp.media({
@@ -40,11 +31,10 @@ for( item of mediaUploader ){
 			var ids = ( '' != input.value ) ? input.value.split(',') : [];
 
 			selection.forEach(function(item){
-
 				ids.push(item.attributes.id);
 
 				var thumbnail = document.createElement('img');
-				thumbnail.setAttribute('src', item.attributes.sizes.full.url);
+				thumbnail.setAttribute('src', item.attributes.sizes.thumbnail.url);
 				thumbnail.setAttribute('style', 'display: flex; flex-direction: column; margin: .5rem');
 				thumbnail.setAttribute('height', 150);
 				thumbnail.setAttribute('width', 150);
@@ -64,15 +54,16 @@ for( item of mediaUploader ){
 }
 
 // Remove image
-
 let mediaRemover = document.getElementsByClassName('img-remover');
-Array.from(mediaRemover).forEach(function(item){
-	item.onclick = function(event){
 
-		let parent 		= item.closest('.media-uploader');
+for( let i = 0; i < mediaRemover.length; i++ ){
+	let item = mediaRemover[i]
+	item.addEventListener('click', function(){
+		let parent 		= item.closest('.wasp-media-uploader');
 		let input 		= parent.getElementsByTagName('input');
-		let thumbnailID = item.getAttribute('data-remove');
-		let wrapper 	= document.getElementById('thumbnail-'+ thumbnailID);
+		let thumbnailID = item.getAttribute('data-thumbnail-id');
+		let wrapperID 	= item.getAttribute('data-remove');
+		let wrapper 	= document.getElementById(wrapperID);
 		var ids 		= [];
 
 		var value = input[0].value.split(',');
@@ -84,6 +75,5 @@ Array.from(mediaRemover).forEach(function(item){
 			}
 		}
 		input[0].value = ids.toString();
-
-	}
-});
+	})
+}

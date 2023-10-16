@@ -1,92 +1,76 @@
 <?php
+namespace WASP\Meta_Box;
+
+use WASP\Helpers\HTML;
+
 /**
  * Meta Boxes
  *
- * @since WASP 1.0.0
+ * @since 1.0.0
  */
-
-abstract class WASP_Meta_Box
+abstract class Meta_Box
 {
 
 	/**
 	 * Meta box ID
 	 * @access public
-	 * @var string
+	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $id;
 
 	/**
 	 * Title of the meta box
-	 * @access private
-	 * @var string
+	 * @access public
+	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
-	private $title;
+	public $title;
 
 	/**
 	 * The screens or screens on which to show the box
-	 * @access private
-	 * @var string|array
+	 * @access public
+	 * @var string|array Optional
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
-	private $screens;
+	public $screen = null;
 
 	/**
 	 * The context within the screens where the box should display
-	 * @access private
-	 * @var string
+	 * @access public
+	 * @var string Optional
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
-	private $context;
+	public $context = 'advanced';
 
 	/**
 	 * The priority within the context where the box should show
-	 * @access private
-	 * @var string
+	 * @access public
+	 * @var string Optional
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
-	private $priority;
+	public $priority = 'default';
 
 	/**
 	 * Data that should be set as the $args property of the box array
-	 * @access private
-	 * @var array
+	 * @access public
+	 * @var array Optional
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
-	private $callback_args;
+	public $callback_args = null;
 
 	/**
 	 * Constructor
-	 * @param string 	$id
-	 * @param string 	$title
-	 * @param string 	$screens
-	 * @param string 	$context
-	 * @param string 	$priority
-	 * @param array 	$callback_args
-	 */
-	public function __construct( $id, $title, $screens = array(), $context = 'advanced', $priority = 'default', $callback_args = null )
-	{
-			$this->screens 			= ( is_string( $screens ) ) ? (array) $screens : $screens;
-			$this->id				= $id;
-			$this->title			= $title;
-			$this->context			= $context;
-			$this->priority			= $priority;
-			$this->callback_args	= $callback_args;
-	}
-
-	/**
-	 * Hooks some methods
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
-	public function init()
+	function __construct()
 	{
 		add_action( 'add_meta_boxes', array( $this, 'meta_box' ), 10, 6 );
 		add_action( 'save_post', array( $this, 'save_meta' ) );
@@ -95,15 +79,15 @@ abstract class WASP_Meta_Box
 	/**
 	 * Adds a meta box
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
-	public function meta_box()
+	function meta_box()
 	{
 		add_meta_box(
 			$this->id,
 			$this->title,
 			$this->callback(),
-			$this->screens,
+			$this->screen,
 			$this->context,
 			$this->priority,
 			$this->callback_args
@@ -114,9 +98,9 @@ abstract class WASP_Meta_Box
 	 * Get the callable that will the content of the meta box.
 	 * @return callable
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
-	public function callback()
+	function callback()
 	{
 		return array( $this, 'render' );
 	}
@@ -125,28 +109,26 @@ abstract class WASP_Meta_Box
 	 * Render the content of the meta box.
 	 * @param WP_Post $post 		Required. Post object.
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
-	public function render( WP_Post $post )
+	function render( \WP_Post $post )
 	{
 		wp_nonce_field( $this->id .'_attr', $this->id .'_field' );
-		$html = new WASP_Html;
-
 		$fields = $this->fields();
 
-		foreach ( $fields as $key => $value ) :
-			$meta_value = get_post_meta( $post->ID, $value['meta'], true );
-			$html::field( $value['meta'], $meta_value, $value['label'], $value['type'] ?? null, $value['select'] ?? null );
+		foreach ( $fields as $key => $data ) :
+			$value = get_post_meta( $post->ID, $data['meta'], true );
+			HTML::field( $data, $value );
 		endforeach;
 	}
 
 	/**
 	 * Save the data
-	 * @param int $post_id 			Required. Current post ID
+	 * @param int $post_id 	Required. Current post ID
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
-	public function save_meta( $post_id )
+	function save_meta( $post_id )
 	{
 		// Check if the current user is authorized to do this action.
 		if ( ! current_user_can( 'edit_posts' ) )
@@ -178,14 +160,16 @@ abstract class WASP_Meta_Box
 	 * This method must return an associative array like the example
 	 * 		$fields = array(
 	 * 			'field_key_name' => array(
-	 * 				'label'	=> 'Field Name',
-	 * 				'meta'	=> 'field_option_name',
+	 * 				'label'		=> 'Field Name',
+	 * 				'option'	=> 'field_option_name',
+	 * 				'type'		=> 'text',
+	 * 				'multiple'	=> array()
 	 * 			),
 	 * 			...
 	 * 		);
-	 * @return array 		Array of fields
+	 * @see class WASP\Helpers\HTML::field() for full documentation about supported fields.
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	abstract public function fields();
 

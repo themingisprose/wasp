@@ -1,38 +1,41 @@
 <?php
+namespace WASP\Terms;
+
+use WASP\Helpers\HTML;
+
 /**
  * Term Meta
  *
- * @since WASP 1.0.0
+ * @since 1.0.0
  */
-abstract class WASP_Term_Meta
+abstract class Term_Meta
 {
 
 	/**
 	 * Taxonomy
 	 * @access public
-	 * @var string
+	 * @var string 	Required
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	public $taxonomy;
 
 	/**
 	 * Constructor
-	 * @param string $taxonomy
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
-	public function __construct( $taxonomy )
+	function __construct()
 	{
-		$this->taxonomy = $taxonomy;
+		add_action( 'admin_init', array( $this, 'init' ) );
 	}
 
 	/**
-	 * Hook the forms
+	 * Initializes hooks
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
-	public function init()
+	function init()
 	{
 		add_action( $this->taxonomy .'_add_form_fields', array( $this, 'render' ), 10, 2 );
 		add_action( $this->taxonomy .'_edit_form_fields', array( $this, 'render' ), 10, 2 );
@@ -42,52 +45,43 @@ abstract class WASP_Term_Meta
 
 	/**
 	 * Render the content of the meta box.
-	 * @param WP_Post $post 		Required. Post object.
+	 * @param object $term 	Current term.
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
-	public function render( $term )
+	function render( $term )
 	{
 		$fields = $this->fields();
 
-		foreach ( $fields as $key => $value ) :
-			$meta_value = ( isset( $term->term_id ) )
-							? get_term_meta( $term->term_id, $value['meta'], true )
+		foreach ( $fields as $key => $data ) :
+			$value = ( isset( $term->term_id ) )
+							? get_term_meta( $term->term_id, $data['meta'], true )
 							: null;
 
-			$this->html( $value['meta'], $meta_value, $value['label'], $value['type'] ?? null, $value['select'] ?? null );
+			$this->html( $data, $value );
 		endforeach;
 	}
 
 	/**
 	 * Form fields to render
-	 * @param string $meta
-	 * @param string $value
-	 * @param string $label
-	 * @param string $type
-	 * @param array $select 	If $type = 'select', $select must be define as array
-	 * 							$select = array(
-	 * 								'value_01'	=> 'Label 01',
-	 * 								'value_02'	=> 'Label 02',
-	 * 								...
-	 * 							)
+	 * @param string $args 	This parameter is described in class WASP\Helpers\HTML::field() method
+	 * @param string $value	This parameter is described in class WASP\Helpers\HTML::field() method
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
-	function html( $meta, $value, $label, $type = null, $select = null )
+	function html( $args, $value )
 	{
-		$type = ( isset( $type ) ) ? $type : 'text';
 
 		$tr 	= ( $this->taxonomy .'_edit_form_fields' == current_filter() )
 					? '<tr class="form-field term-order-wrap">'
-					: null;
+					: '<div class="form-field">';
 		$tr_end	= ( $this->taxonomy .'_edit_form_fields' == current_filter() )
 					? '</tr>'
-					: '<div class="mb-2">';
+					: '</div>';
 
 		$th 	= ( $this->taxonomy .'_edit_form_fields' == current_filter() )
 					? '<th scope="row">'
-					: '</div>';
+					: null;
 		$th_end	= ( $this->taxonomy .'_edit_form_fields' == current_filter() )
 					? '</th>'
 					: null;
@@ -99,16 +93,17 @@ abstract class WASP_Term_Meta
 					? '</td>'
 					: null;
 
+		$label 	= ( $this->taxonomy .'_edit_form_fields' == current_filter() )
+					? '<p><label for="'. $args['meta'] .'" class="description">'. $args['label'] .'</label></p>'
+					: null;
+
 		echo $tr;
 			echo $th;
-	?>
-			<p><label for="<?php echo $meta ?>" class="description d-block mb-2"><?php echo $label ?></label></p>
-		<?php
+				echo $label;
 			echo $th_end;
 			echo $td;
 
-			$html = new WASP_Html;
-			$html::field( $meta, $value, $label, $type, $select );
+			HTML::field( $args, $value );
 
 			echo $td_end;
 		echo $tr_end;
@@ -116,11 +111,11 @@ abstract class WASP_Term_Meta
 
 	/**
 	 * Save the Term Meta
-	 * @param int $term_id 		Current Term
+	 * @param int $term_id 	Current term.
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
-	public function save_meta( $term_id )
+	function save_meta( $term_id )
 	{
 		$fields = $this->fields();
 
@@ -138,14 +133,17 @@ abstract class WASP_Term_Meta
 	 * This method must return an associative array like the example
 	 * 		$fields = array(
 	 * 			'field_key_name' => array(
-	 * 				'label'	=> 'Field Name',
-	 * 				'meta'	=> 'field_option_name',
+	 * 				'label'		=> 'Field Name',
+	 * 				'option'	=> 'field_option_name',
+	 * 				'type'		=> 'text',
+	 * 				'multiple'	=> array()
 	 * 			),
 	 * 			...
 	 * 		);
-	 * @return array 		Array of fields
+	 * @see class WASP\Helpers\HTML::field() for full documentation about supported fields.
+	 * @return array 	Array of fields
 	 *
-	 * @since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	abstract public function fields();
 }
