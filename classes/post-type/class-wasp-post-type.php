@@ -6,7 +6,7 @@ namespace WASP\Posts;
  *
  * @since 1.0.0
  */
-abstract class Custom_Post_Type
+abstract class Post_Type
 {
 	/**
 	 * Post Type slug

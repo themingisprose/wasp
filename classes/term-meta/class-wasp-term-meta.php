@@ -1,5 +1,5 @@
 <?php
-namespace WASP\Taxonomy;
+namespace WASP\Terms;
 
 use WASP\Helpers\HTML;
 

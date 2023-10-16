@@ -1,5 +1,5 @@
 <?php
-namespace WASP\Posts;
+namespace WASP\Meta_Box;
 
 use WASP\Helpers\HTML;
 
