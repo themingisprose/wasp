@@ -18,7 +18,7 @@ class HTML
 	 * 							$args['label']: 'Field label'
 	 * 							$args['meta']: 'field_meta'
 	 * 							$args['type']: Input type: title|button|color|date|datetime-local|
-	 * 							email|hidden|month|number|password|range|tel|text|time|url|week|
+	 * 							email|hidden|month|number|paragraph|password|range|tel|text|time|url|week|
 	 * 							textarea|checkbox|radio|select|media|file.
 	 * 							If $args['type'] is equal to 'select' or 'input'
 	 * 							Default 'text'
