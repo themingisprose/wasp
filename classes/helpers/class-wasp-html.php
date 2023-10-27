@@ -18,14 +18,15 @@ class HTML
 	 * 							$args['label']: 'Field label'
 	 * 							$args['meta']: 'field_meta'
 	 * 							$args['type']: Input type: title|button|color|date|datetime-local|
-	 * 							email|hidden|month|number|paragraph|password|range|tel|text|time|url|week|
-	 * 							textarea|checkbox|radio|select|media|file.
+	 * 							email|hidden|month|nonce|number|paragraph|password|range|tel|text|
+	 * 							time|url|week|textarea|checkbox|radio|select|media|file.
 	 * 							If $args['type'] is equal to 'select' or 'input'
 	 * 							Default 'text'
 	 * 							$args['multiple']: Array used to define the values of field type
 	 * 							'radio', 'select' or 'range'.
 	 * 							For field type 'range' $args['multiple'] should be like
 	 * 							array( 'min' => '0', 'max' => '100', 'step' => '0' )
+	 * 							For field type 'nonce', $args['value'] must be set
 	 *
 	 * @param string $value Default value
 	 *
@@ -49,6 +50,7 @@ class HTML
 			static::select( $args, $value );
 			static::media( $args, $value );
 			static::file( $args, $value );
+			static::nonce( $args );
 		echo '</div>';
 	}
 
@@ -318,6 +320,26 @@ class HTML
 			endif;
 			?>
 		</select>
+	<?php
+	}
+
+	/**
+	 * Nonce
+	 * @param array $args 	Array of arguments
+	 *
+	 * @since 1.0.1
+	 */
+	public static function nonce( $args )
+	{
+		if ( 'nonce' != $args['type'] )
+			return;
+	?>
+		<input
+			id="<?php echo $args['meta'] ?>"
+			type="hidden"
+			name="<?php echo $args['meta'] ?>"
+			value="<?php echo $args['value'] ?>"
+		>
 	<?php
 	}
 }
