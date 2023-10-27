@@ -123,6 +123,10 @@ abstract class Setting_Fields
 	function get_option( $meta )
 	{
 		$option = get_option( $this->option_name );
+
+		if ( ! is_array( $option ) || ! array_key_exists( $meta, $option ) )
+			return;
+
 		return $option[$meta];
 	}
 
