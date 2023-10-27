@@ -40,6 +40,7 @@ class HTML
 
 		echo '<div class="wasp-field field-'. $args['type'] .'">';
 			static::title( $args );
+			static::paragraph( $args );
 			static::default( $args, $value );
 			static::content( $args, $value );
 			static::textarea( $args, $value );
@@ -63,6 +64,21 @@ class HTML
 			return;
 		?>
 			<h3><?php echo $args['label'] ?></h3>
+		<?php
+	}
+
+	/**
+	 * Paragraph
+	 * @param array $args
+	 *
+	 * @since 1.0.1
+	 */
+	public static function paragraph( $args )
+	{
+		if ( 'paragraph' != $args['type'] )
+			return;
+		?>
+			<p><?php echo $args['label'] ?></p>
 		<?php
 	}
 
