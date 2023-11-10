@@ -13,44 +13,61 @@ class HTML
 
 	/**
 	 * Form fields to render
-	 * @param array $args 	Array of arguments to generate the form field
-	 * 						Accepted arguments:
-	 * 							$args['label']: 'Field label'
-	 * 							$args['meta']: 'field_meta'
-	 * 							$args['type']: Input type: title|button|color|date|datetime-local|
-	 * 							email|hidden|month|nonce|number|paragraph|password|range|tel|text|
-	 * 							time|url|week|textarea|checkbox|radio|select|media|file.
-	 * 							If $args['type'] is equal to 'select' or 'input'
-	 * 							Default 'text'
-	 * 							$args['multiple']: Array used to define the values of field type
-	 * 							'radio', 'select' or 'range'.
-	 * 							For field type 'range' $args['multiple'] should be like
-	 * 							array( 'min' => '0', 'max' => '100', 'step' => '0' )
-	 * 							For field type 'nonce', $args['value'] must be set
-	 *
-	 * @param string $value Default value
+	 * @param array $args {
+	 *		Array of arguments, supports the following keys:
+	 * 		@type string $label 	Field label.
+	 * 		@type string $meta 		Field meta. 'key' stored in the database
+	 * 		@type string $type 		Field type.
+	 * 								Default 'text'.
+	 * 								Supported values: 'button', 'checkbox', 'color', 'content',
+	 * 								'date', 'datetime-local', 'email', 'file', 'hidden', 'media',
+	 * 								'month', 'nonce' 'number', 'password', 'radio', 'range', 'select',
+	 * 								'tel', 'text', 'textarea', 'time', 'url', 'week'.
+	 * 		@type array $multiple	Array used to define the values of field type 'radio' or 'select'.
+	 * 								$multiple = array(
+	 * 									'option_1' => 'Label 1',
+	 * 									'option_2' => 'Label 2',
+	 * 									'option_3' => 'Label 3',
+	 * 									...
+	 * 								)
+	 * 		@type array $attr 		Array of HTML attributes
+	 * 								$attr = array(
+	 * 									'min' 		=> '1',
+	 * 									'max' 		=> '999',
+	 * 									'step' 		=> '3.14',
+	 * 									...
+	 * 								)
+	 * 		@type mixed $default 	Default value before to save the data in the database.
+	 * }
+	 * @param string $value 		Value retrieved from database
 	 *
 	 * @since 1.0.0
+	 * @since 1.0.1 				Added $args['default']
+	 * @since 1.0.1 				Added $args['attr']
 	 */
 	public static function field( $args, $value )
 	{
 		$defaults = array(
-			'type'	=> 'text'
+			'type'		=> 'text',
+			'label'		=> null,
+			'meta'		=> null,
+			'default'	=> null,
+			'attr'		=> null
 		);
 		$args = wp_parse_args( $args, $defaults );
 
-		echo '<div class="wasp-field field-'. $args['type'] .'">';
-			static::title( $args );
-			static::paragraph( $args );
-			static::default( $args, $value );
-			static::content( $args, $value );
-			static::textarea( $args, $value );
-			static::checkbox( $args, $value );
-			static::radio( $args, $value );
-			static::select( $args, $value );
-			static::media( $args, $value );
-			static::file( $args, $value );
-			static::nonce( $args );
+		echo '<div class="wasp-field field-'. $args['type'] .'" style="margin-bottom: .5rem">';
+			self::title( $args );
+			self::paragraph( $args );
+			self::default( $args, $value );
+			self::content( $args, $value );
+			self::textarea( $args, $value );
+			self::checkbox( $args, $value );
+			self::radio( $args, $value );
+			self::select( $args, $value );
+			self::media( $args, $value );
+			self::file( $args, $value );
+			self::nonce( $args );
 		echo '</div>';
 	}
 
@@ -114,22 +131,26 @@ class HTML
 		if ( ! in_array( $args['type'], $types ) )
 			return;
 
-		$min	= ( 'range' == $args['type'] && isset( $args['multiple']['min'] ) ) ? 'min="'. $args['multiple']['min'] .'"' : null;
-		$max	= ( 'range' == $args['type'] && isset( $args['multiple']['max'] ) ) ? 'max="'. $args['multiple']['max'] .'"' : null;
-		$step	= ( 'range' == $args['type'] && isset( $args['multiple']['step'] ) ) ? 'step="'. $args['multiple']['step'] .'"' : null;
-		$value 	= ( 'button' != $args['type'] ) ? $value : $args['label'];
-		$class 	= ( 'button' != $args['type'] ) ? 'regular-text' : 'button';
+		$default	= $value ?? ( ( isset( $args['default'] ) ) ? $args['default'] : null );
+		$value 		= ( 'button' != $args['type'] ) ? $default : $args['label'];
+		$class 		= ( 'button' != $args['type'] ) ? 'regular-text' : 'button';
+
+		$no_label	= array(
+			'button',
+			'hidden'
+		);
 	?>
+
+	<?php if ( ! in_array( $args['type'], $no_label )  ) : ?>
 		<p><label for="<?php echo $args['meta'] ?>" class="description"><?php echo $args['label'] ?></label></p>
+	<?php endif ?>
 		<input
 			id="<?php echo $args['meta'] ?>"
 			class="<?php echo $class ?>"
 			type="<?php echo $args['type'] ?>"
 			name="<?php echo $args['meta'] ?>"
 			value="<?php echo $value ?>"
-			<?php echo $min ?>
-			<?php echo $max ?>
-			<?php echo $step ?>
+			<?php self::attr( $args['attr'] ) ?>
 		>
 	<?php
 	}
@@ -162,7 +183,11 @@ class HTML
 				'toolbar1'				=> 'bold,italic,underline,|,bullist,numlist,|,alignleft,aligncenter,alignright,|,link,unlink,|,undo,redo',
 			),
 		);
-		wp_editor( $value, $args['meta'], $settings );
+		wp_editor(
+			$value ?? ( ( isset( $args['default'] ) ) ? $args['default'] : null ) ?? '',
+			$args['meta'],
+			$settings
+		);
 	}
 
 	/**
@@ -178,7 +203,14 @@ class HTML
 			return;
 	?>
 		<p><label for="<?php echo $args['meta'] ?>" class="description"><?php echo $args['label'] ?></label></p>
-		<textarea id="<?php echo $args['meta'] ?>" class="regular-text mb-3" name="<?php echo $args['meta'] ?>" cols="30" rows="5"><?php echo $value ?></textarea>
+		<textarea
+			id="<?php echo $args['meta'] ?>"
+			class="regular-text mb-3"
+			name="<?php echo $args['meta'] ?>"
+			cols="30"
+			rows="5"
+			<?php static::attr( $args['attr'] ) ?>
+		><?php echo $value ?? ( ( isset( $args['default'] ) ) ? $args['default'] : null ) ?></textarea>
 	<?php
 	}
 
@@ -261,9 +293,17 @@ class HTML
 	{
 		if ( 'checkbox' != $args['type'] )
 			return;
+
+		$value = $value ?? ( ( 'checked' == $args['default'] ) ? 1 : null );
 		?>
 			<label>
-				<input type="checkbox" name="<?php echo $args['meta'] ?>" value="1" <?php checked( $value, 1 ) ?>>
+				<input
+					type="checkbox"
+					name="<?php echo $args['meta'] ?>"
+					value="1"
+					<?php checked( $value, 1 ) ?>
+					<?php static::attr( $args['attr'] ) ?>
+				>
 				<?php echo $args['label'] ?>
 			</label>
 		<?php
@@ -285,7 +325,13 @@ class HTML
 			foreach ( $args['multiple'] as $k => $v ) :
 		?>
 		<p><label>
-			<input type="radio" name="<?php echo $args['meta'] ?>" value="<?php echo $k ?>" <?php checked( $k, $value ) ?>>
+			<input
+				type="radio"
+				name="<?php echo $args['meta'] ?>"
+				value="<?php echo $k ?>"
+				<?php checked( $k, $value ?? ( ( isset( $args['default'] ) ) ? $args['default'] : null ) ) ?>
+				<?php static::attr( $args['attr'] ) ?>
+			>
 			<?php echo $v ?>
 		</label></p>
 		<?php
@@ -305,16 +351,22 @@ class HTML
 		if ( 'select' != $args['type'] )
 			return;
 
-		$option = ( ! is_array( $args['multiple'] ) ) ? __( 'No data available', 'wasp' ) : __( 'Select an option', 'wasp' );
+		$option = ( ! is_array( $args['multiple'] ) )
+					? __( 'No data available', 'wasp' )
+					: __( '&mdash; Select an option &mdash;', 'wasp' );
 	?>
 		<p><label for="<?php echo $args['meta'] ?>" class="description"><?php echo $args['label'] ?></label></p>
-		<select id="<?php echo $args['meta'] ?>" name="<?php echo $args['meta'] ?>">
+		<select
+			id="<?php echo $args['meta'] ?>"
+			name="<?php echo $args['meta'] ?>"
+			<?php static::attr( $args['attr'] ) ?>
+		>
 			<option value=""><?php echo $option ?></option>
 			<?php
 			if ( is_array( $args['multiple'] ) ) :
 				foreach ( $args['multiple'] as $k => $v ) :
 			?>
-			<option value="<?php echo $k ?>" <?php selected( $k, $value ) ?>><?php echo $v ?></option>
+			<option value="<?php echo $k ?>" <?php selected( $k, $value ?? ( ( isset( $args['default'] ) ) ? $args['default'] : null ) ) ?>><?php echo $v ?></option>
 			<?php
 				endforeach;
 			endif;
@@ -338,8 +390,25 @@ class HTML
 			id="<?php echo $args['meta'] ?>"
 			type="hidden"
 			name="<?php echo $args['meta'] ?>"
-			value="<?php echo $args['value'] ?>"
+			value="<?php echo $args['default'] ?>"
 		>
 	<?php
+	}
+
+	/**
+	 * Process the $args['attr'] var
+	 * @param array $attr
+	 * @return string
+	 *
+	 * @since 1.0.1
+	 */
+	private static function attr( $attr )
+	{
+		if ( ! is_array( $attr ) )
+			return;
+
+		foreach ( $attr as $k => $v ) :
+			echo $k .'="'. $v .'" ';
+		endforeach;
 	}
 }

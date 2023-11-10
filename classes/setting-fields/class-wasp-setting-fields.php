@@ -159,6 +159,7 @@ abstract class Setting_Fields
 
 	/**
 	 * Render the content of the section
+	 * @see WASP\Helpers\HTML::field()
 	 *
 	 * @since 1.0.0
 	 */
@@ -167,7 +168,7 @@ abstract class Setting_Fields
 		$fields = $this->fields();
 
 		foreach ( $fields as $key => $data ) :
-			$value = $this->get_option( $data['meta'] );
+			$value = $this->get_option( $data['meta'] ?? null );
 			HTML::field( $data, $value );
 		endforeach;
 	}
@@ -184,7 +185,7 @@ abstract class Setting_Fields
 		foreach ( $fields as $key => $value ) :
 			$input[$value['meta']] = ( isset( $_POST[$value['meta']] ) && null !== $_POST[$value['meta']] )
 										? stripslashes( trim( $_POST[$value['meta']] ) )
-										: null;
+										: '';
 		endforeach;
 
 		add_settings_error( 'wasp-update', 'wasp', __( 'Setting Updated', 'wasp' ), 'success' );
