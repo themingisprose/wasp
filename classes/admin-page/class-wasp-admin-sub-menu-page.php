@@ -1,6 +1,8 @@
 <?php
 namespace WASP\Admin;
 
+use WASP\Admin\Admin_Page_Body as Body;
+
 /**
  * Admin Sub Page
  *
@@ -70,7 +72,7 @@ abstract class Admin_Sub_Menu_Page
 	 *
 	 * @since 1.0.0
 	 */
-	public $dashboard_title;
+	public $page_heading;
 
 	/**
 	 * Option Group
@@ -117,18 +119,11 @@ abstract class Admin_Sub_Menu_Page
 	 */
 	function setting_options()
 	{
-		?>
-			<div class="wrap">
-				<h2><?php echo $this->dashboard_title ?></h2>
-				<?php settings_errors( 'wasp-update' ) ?>
-				<form id="<?php echo $this->menu_slug ?>" method="post" action="options.php">
-					<?php
-						settings_fields( $this->option_group );
-						do_settings_sections( $this->menu_slug );
-						submit_button();
-					?>
-				</form>
-			</div>
-		<?php
+		$args = array(
+			'page_heading'	=> $this->page_heading,
+			'menu_slug'		=> $this->menu_slug,
+			'option_group'	=> $this->option_group
+		);
+		Body::body( $args );
 	}
 }
