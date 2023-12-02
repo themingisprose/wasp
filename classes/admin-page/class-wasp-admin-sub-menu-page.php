@@ -1,14 +1,14 @@
 <?php
 namespace WASP\Admin;
 
-use WASP\Admin\Admin_Page_Body as Body;
+use WASP\Admin\Admin_Page_Body as Page_Body;
 
 /**
  * Admin Sub Page
  *
  * @since 1.0.0
  */
-abstract class Admin_Sub_Menu_Page
+abstract class Admin_Sub_Menu_Page extends Page_Body
 {
 
 	/**
@@ -107,23 +107,8 @@ abstract class Admin_Sub_Menu_Page
 			$this->menu_title,
 			$this->capability,
 			$this->menu_slug,
-			array( $this, 'setting_options' ),
+			array( $this, 'page_body' ),
 			$this->position
 		);
-	}
-
-	/**
-	 * Setting Options
-	 *
-	 * @since 1.0.0
-	 */
-	function setting_options()
-	{
-		$args = array(
-			'page_heading'	=> $this->page_heading,
-			'menu_slug'		=> $this->menu_slug,
-			'option_group'	=> $this->option_group
-		);
-		Body::body( $args );
 	}
 }
