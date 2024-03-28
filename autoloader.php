@@ -11,11 +11,17 @@ spl_autoload_register( function( $class ){
 	$class_name = end( $parts );
 
 	foreach ( $directories as $dir ) :
-		$file = $dir .'/class-wasp-'. str_replace( '_', '-', strtolower( $class_name ) ) .'.php';
+		$prefixes = array(
+			'class',
+			'interface'
+		);
+		foreach ( $prefixes as $prefix ) :
+			$file = $dir .'/'. $prefix .'-wasp-'. str_replace( '_', '-', strtolower( $class_name ) ) .'.php';
 
-		if ( file_exists( $file ) ) :
-			require_once $file;
-			break;
-		endif;
+			if ( file_exists( $file ) ) :
+				require_once $file;
+				break;
+			endif;
+		endforeach;
 	endforeach;
 } );

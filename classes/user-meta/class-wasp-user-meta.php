@@ -2,13 +2,14 @@
 namespace WASP\Users;
 
 use WASP\Helpers\HTML;
+use WASP\Interfaces\Fields;
 
 /**
  * User Meta
  *
  * @since 1.0.0
  */
-abstract class User_Meta
+abstract class User_Meta implements Fields
 {
 
 	/**
@@ -23,7 +24,7 @@ abstract class User_Meta
 	/**
 	 * Constructor
 	 *
-	 * since WASP 1.0.0
+	 * @since 1.0.0
 	 */
 	function __construct()
 	{
@@ -40,6 +41,12 @@ abstract class User_Meta
 		add_action( 'user_register', array( $this, 'save' ) );
 	}
 
+	/**
+	 * Render the content of the section
+	 * @see WASP\Helpers\HTML::field()
+	 *
+	 * @since 1.0.0
+	 */
 	function render()
 	{
 		$fields = $this->fields();
@@ -81,7 +88,6 @@ abstract class User_Meta
 	<?php
 	}
 
-
 	/**
 	 * Save the user meta
 	 * @param object $user_id
@@ -100,24 +106,4 @@ abstract class User_Meta
 			endif;
 		endforeach;
 	}
-
-	/**
-	 * Array of fields to render
-	 * This method must return an associative array like the example
-	 * 		$fields = array(
-	 * 			'field_key_name' => array(
-	 * 				'label'		=> 'Field Name',
-	 * 				'option'	=> 'field_option_name',
-	 * 				'type'		=> 'text',
-	 * 				'multiple'	=> array()
-	 * 			),
-	 * 			...
-	 * 		);
-	 * @see class WASP\Helpers\HTML::field() for full documentation about supported fields.
-	 * @return array 	Array of fields
-	 *
-	 * @since 1.0.0
-	 */
-	abstract public function fields();
-
 }

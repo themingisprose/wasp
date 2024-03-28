@@ -2,13 +2,14 @@
 namespace WASP\Setting_Fields;
 
 use WASP\Helpers\HTML;
+use WASP\Interfaces\Fields;
 
 /**
  * Setting Fields
  *
  * @since 1.0.0
  */
-abstract class Setting_Fields
+abstract class Setting_Fields implements Fields
 {
 
 	/**
@@ -192,23 +193,4 @@ abstract class Setting_Fields
 
 		return $input;
 	}
-
-	/**
-	 * Array of fields to render
-	 * This method must return an associative array like the example
-	 * 		$fields = array(
-	 * 			'field_key_name' => array(
-	 * 				'label'		=> 'Field Name',
-	 * 				'option'	=> 'field_option_name',
-	 * 				'type'		=> 'text',
-	 * 				'multiple'	=> array()
-	 * 			),
-	 * 			...
-	 * 		);
-	 * @see class WASP\Helpers\HTML::field() for full documentation about supported fields.
-	 * @return array 	Array of fields
-	 *
-	 * @since 1.0.0
-	 */
-	abstract public function fields();
 }

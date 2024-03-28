@@ -2,13 +2,14 @@
 namespace WASP\Meta_Box;
 
 use WASP\Helpers\HTML;
+use WASP\Interfaces\Fields;
 
 /**
  * Meta Boxes
  *
  * @since 1.0.0
  */
-abstract class Meta_Box
+abstract class Meta_Box implements Fields
 {
 
 	/**
@@ -152,25 +153,5 @@ abstract class Meta_Box
 				delete_post_meta( $post_id, $value['meta'] );
 			endif;
 		endforeach;
-
 	}
-
-	/**
-	 * Array of fields to render
-	 * This method must return an associative array like the example
-	 * 		$fields = array(
-	 * 			'field_key_name' => array(
-	 * 				'label'		=> 'Field Name',
-	 * 				'option'	=> 'field_option_name',
-	 * 				'type'		=> 'text',
-	 * 				'multiple'	=> array()
-	 * 			),
-	 * 			...
-	 * 		);
-	 * @see class WASP\Helpers\HTML::field() for full documentation about supported fields.
-	 *
-	 * @since 1.0.0
-	 */
-	abstract public function fields();
-
 }
