@@ -181,7 +181,7 @@ abstract class Setting_Fields implements Fields
 	 */
 	function validate()
 	{
-		$fields = $this->fields();
+		$fields = $this->merged_fields();
 
 		foreach ( $fields as $key => $value ) :
 			$input[$value['meta']] = ( isset( $_POST[$value['meta']] ) && null !== $_POST[$value['meta']] )
@@ -192,5 +192,26 @@ abstract class Setting_Fields implements Fields
 		add_settings_error( 'wasp-update', 'wasp', __( 'Setting Updated', 'wasp' ), 'success' );
 
 		return $input;
+	}
+
+	/**
+	 * Merge fields from every child class
+	 * @return array
+	 *
+	 * @since 1.0.2
+	 */
+	private function merged_fields()
+	{
+		$fields = $this->fields();
+
+		$result = array();
+		foreach ( get_declared_classes() as $class ) :
+			if ( is_subclass_of( $class, __CLASS__ ) ) :
+				$instance = new $class;
+				$result = array_merge( $result, $instance->fields() );
+			endif;
+		endforeach;
+
+		return $result;
 	}
 }
