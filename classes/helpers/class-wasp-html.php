@@ -385,12 +385,14 @@ class HTML
 	{
 		if ( 'nonce' != $args['type'] )
 			return;
+
+		$value = ( isset( $args['default'] ) ) ? $args['default'] : -1;
 	?>
 		<input
 			id="<?php echo $args['meta'] ?>"
 			type="hidden"
 			name="<?php echo $args['meta'] ?>"
-			value="<?php echo $args['default'] ?>"
+			value="<?php echo wp_create_nonce( $args['default'] ) ?>"
 		>
 	<?php
 	}
