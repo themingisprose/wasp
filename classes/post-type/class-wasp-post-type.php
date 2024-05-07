@@ -10,30 +10,30 @@ abstract class Post_Type
 {
 	/**
 	 * Post Type slug
-	 * @access public
+	 * @access protected
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	public $post_type;
+	protected $post_type;
 
 	/**
 	 * Labels
-	 * @access public
+	 * @access protected
 	 * @var array 	Optional
 	 *
 	 * @since 1.0.0
 	 */
-	public $labels = array();
+	protected $labels = array();
 
 	/**
 	 * Arguments
-	 * @access public
+	 * @access protected
 	 * @var array 	Optional
 	 *
 	 * @since 1.0.0
 	 */
-	public $args = array();
+	protected $args = array();
 
 
  	/**
@@ -41,7 +41,7 @@ abstract class Post_Type
  	 *
  	 * @since 1.0.0
  	 */
- 	function __construct()
+ 	protected function __construct()
  	{
  		add_action( 'init', array( $this, 'register_post_type' ) );
  		register_activation_hook( __FILE__, array( $this, 'flush' ) );
@@ -52,7 +52,7 @@ abstract class Post_Type
  	 *
  	 * @since 1.0.0
  	 */
- 	function register_post_type()
+ 	public function register_post_type()
  	{
  		$labels = array( 'labels' => $this->labels );
  		$args = array_merge( $labels, $this->args );
@@ -64,7 +64,7 @@ abstract class Post_Type
  	 *
  	 * @since 1.0.0
  	 */
- 	function flush()
+ 	public function flush()
  	{
  		$this->register_post_type();
 

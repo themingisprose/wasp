@@ -13,82 +13,82 @@ abstract class Admin_Page extends Page_Body
 
 	/**
 	 * Page title
-	 * @access public
+	 * @access protected
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	public $page_title;
+	protected $page_title;
 
 	/**
 	 * Menu title
-	 * @access public
+	 * @access protected
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	public $menu_title;
+	protected $menu_title;
 
 	/**
 	 * Capability
-	 * @access public
+	 * @access protected
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	public $capability;
+	protected $capability;
 
 	/**
 	 * Menu slug
-	 * @access public
+	 * @access protected
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	public $menu_slug;
+	protected $menu_slug;
 
 	/**
 	 * Icon URL
-	 * @access public
+	 * @access protected
 	 * @var string 	Optional
 	 *
 	 * @since 1.0.0
 	 */
-	public $icon_url = '';
+	protected $icon_url = '';
 
 	/**
 	 * Position
-	 * @access public
+	 * @access protected
 	 * @var string 	Optional
 	 *
 	 * @since 1.0.0
 	 */
-	public $position = null;
+	protected $position = null;
 
 	/**
 	 * Page heading
-	 * @access public
+	 * @access protected
 	 * @var string 	Optional
 	 *
 	 * @since 1.0.0
 	 */
-	public $page_heading;
+	protected $page_heading;
 
 	/**
 	 * Option Group
-	 * @access public
+	 * @access protected
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	public $option_group;
+	protected $option_group;
 
 	/**
 	 * Construct
 	 *
 	 * @since 1.0.0
 	 */
-	function __construct()
+	protected function __construct()
 	{
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 	}
@@ -98,7 +98,7 @@ abstract class Admin_Page extends Page_Body
 	 *
 	 * @since 1.0.0
 	 */
-	function admin_menu()
+	public function admin_menu()
 	{
 		add_menu_page(
 			$this->page_title,

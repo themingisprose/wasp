@@ -26,9 +26,11 @@ abstract class User_Meta implements Fields
 	 *
 	 * @since 1.0.0
 	 */
-	function __construct()
+	public function __construct()
 	{
-		include_once( ABSPATH .'wp-includes/pluggable.php' );
+		if ( ! function_exists( 'wp_get_current_user' ) )
+			include_once( ABSPATH .'wp-includes/pluggable.php' );
+
 		$current_user = wp_get_current_user();
 		$user_id = $_GET['user_id'] ?? $current_user->ID;
 		$this->user_id = $user_id;
@@ -47,7 +49,7 @@ abstract class User_Meta implements Fields
 	 *
 	 * @since 1.0.0
 	 */
-	function render()
+	public function render()
 	{
 		$fields = $this->fields();
 	?>
@@ -72,7 +74,7 @@ abstract class User_Meta implements Fields
 	 *
 	 * @since 1.0.0
 	 */
-	function html( $data, $value )
+	private function html( $data, $value )
 	{
 		$screen = get_current_screen();
 		$value 	= ( 'user' != $screen->id ) ? $value : null;
@@ -94,7 +96,7 @@ abstract class User_Meta implements Fields
 	 *
 	 * @since 1.0.0
 	 */
-	function save( $user_id )
+	public function save( $user_id )
 	{
 		$fields = $this->fields();
 

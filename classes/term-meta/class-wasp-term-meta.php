@@ -14,19 +14,19 @@ abstract class Term_Meta implements Fields
 
 	/**
 	 * Taxonomy
-	 * @access public
+	 * @access protected
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	public $taxonomy;
+	protected $taxonomy;
 
 	/**
 	 * Constructor
 	 *
 	 * @since 1.0.0
 	 */
-	function __construct()
+	protected function __construct()
 	{
 		add_action( 'admin_init', array( $this, 'init' ) );
 	}
@@ -36,7 +36,7 @@ abstract class Term_Meta implements Fields
 	 *
 	 * @since 1.0.0
 	 */
-	function init()
+	public function init()
 	{
 		add_action( $this->taxonomy .'_add_form_fields', array( $this, 'render' ), 10, 2 );
 		add_action( $this->taxonomy .'_edit_form_fields', array( $this, 'render' ), 10, 2 );
@@ -50,7 +50,7 @@ abstract class Term_Meta implements Fields
 	 *
 	 * @since 1.0.0
 	 */
-	function render( $term )
+	public function render( $term )
 	{
 		$fields = $this->fields();
 
@@ -70,7 +70,7 @@ abstract class Term_Meta implements Fields
 	 *
 	 * @since 1.0.0
 	 */
-	function html( $args, $value )
+	private function html( $args, $value )
 	{
 
 		$tr 	= ( $this->taxonomy .'_edit_form_fields' == current_filter() )
@@ -116,7 +116,7 @@ abstract class Term_Meta implements Fields
 	 *
 	 * @since 1.0.0
 	 */
-	function save_meta( $term_id )
+	public function save_meta( $term_id )
 	{
 		$fields = $this->fields();
 

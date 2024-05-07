@@ -14,66 +14,66 @@ abstract class Setting_Fields implements Fields
 
 	/**
 	 * Option group
-	 * @access public
+	 * @access protected
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	public $option_group;
+	protected $option_group;
 
 	/**
 	 * Option name
-	 * @access public
+	 * @access protected
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	public $option_name;
+	protected $option_name;
 
 	/**
 	 * HTML section id
-	 * @access public
+	 * @access protected
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	public $section_id;
+	protected $section_id;
 
 	/**
 	 * Section title
-	 * @access public
+	 * @access protected
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	public $section_title;
+	protected $section_title;
 
 	/**
 	 * Page slug
-	 * @access public
+	 * @access protected
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	public $slug;
+	protected $slug;
 
 	/**
 	 * HTML field id
-	 * @access public
+	 * @access protected
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	public $field_id;
+	protected $field_id;
 
 	/**
 	 * Field Title
-	 * @access public
+	 * @access protected
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	public $field_title;
+	protected $field_title;
 
 
 	/**
@@ -81,7 +81,7 @@ abstract class Setting_Fields implements Fields
 	 *
 	 * @since 1.0.0
 	 */
-	function __construct()
+	protected function __construct()
 	{
 		add_action( 'admin_menu', array( $this, 'register_setting' ) );
 	}
@@ -91,7 +91,7 @@ abstract class Setting_Fields implements Fields
 	 *
 	 * @since 1.0.0
 	 */
-	function register_setting()
+	public function register_setting()
 	{
 		register_setting(
 			$this->option_group,
@@ -121,7 +121,7 @@ abstract class Setting_Fields implements Fields
 	 *
 	 * @since 1.0.0
 	 */
-	function get_option( $meta )
+	protected function get_option( $meta )
 	{
 		$option = get_option( $this->option_name );
 
@@ -136,7 +136,7 @@ abstract class Setting_Fields implements Fields
 	 *
 	 * @since 1.0.0
 	 */
-	function sanitize_options()
+	public function sanitize_options()
 	{
 		/**
 		 * Filters the Options Input
@@ -148,12 +148,12 @@ abstract class Setting_Fields implements Fields
 	}
 
 	/**
-	 * Get the callable that will the content of the section.
+	 * Fills the field with the desired form inputs.
 	 * @return callable
 	 *
 	 * @since 1.0.0
 	 */
-	function callback()
+	private function callback()
 	{
 		return array( $this, 'render' );
 	}
@@ -164,7 +164,7 @@ abstract class Setting_Fields implements Fields
 	 *
 	 * @since 1.0.0
 	 */
-	function render()
+	public function render()
 	{
 		$fields = $this->fields();
 
@@ -179,7 +179,7 @@ abstract class Setting_Fields implements Fields
 	 *
 	 * @since 1.0.0
 	 */
-	function validate()
+	private function validate()
 	{
 		$fields = $this->merged_fields();
 

@@ -14,7 +14,7 @@ class Enqueue
 	 *
 	 * @since 1.0.0
 	 */
-	function __construct()
+	protected function __construct()
 	{
 		add_action( 'admin_enqueue_scripts', array( $this, 'media_upload' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'file_upload' ) );

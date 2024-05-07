@@ -11,46 +11,46 @@ abstract class Taxonomy
 
 	/**
 	 * Taxonomy slug
-	 * @access public
+	 * @access protected
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	public $taxonomy;
+	protected $taxonomy;
 
 	/**
 	 * Post Type slug
-	 * @access public
+	 * @access protected
 	 * @var array|string Required
 	 *
 	 * @since 1.0.0
 	 */
-	public $object_type;
+	protected $object_type;
 
 	/**
 	 * Labels
-	 * @access public
+	 * @access protected
 	 * @var array 	Optional
 	 *
 	 * @since 1.0.0
 	 */
-	public $labels = array();
+	protected $labels = array();
 
 	/**
 	 * Arguments
-	 * @access public
+	 * @access protected
 	 * @var array 	Optional
 	 *
 	 * @since 1.0.0
 	 */
-	public $args = array();
+	protected $args = array();
 
 	/**
 	 * Constructor
  	 *
  	 * @since 1.0.0
 	 */
- 	function __construct()
+ 	protected function __construct()
  	{
  		add_action( 'init', array( $this, 'register_taxonomy' ) );
  	}
@@ -60,7 +60,7 @@ abstract class Taxonomy
 	 *
 	 * @since 1.0.0
 	 */
-	function register_taxonomy()
+	public function register_taxonomy()
 	{
  		$labels = array( 'labels' => $this->labels );
  		$args = array_merge( $labels, $this->args );
