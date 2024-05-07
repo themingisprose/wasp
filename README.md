@@ -1,3 +1,5 @@
+[![CodeFactor](https://www.codefactor.io/repository/github/themingisprose/wasp/badge)](https://www.codefactor.io/repository/github/themingisprose/wasp)
+
 # WASP 🐝 &bull; Woew! Another starter plugin
 
 ## Introducción
