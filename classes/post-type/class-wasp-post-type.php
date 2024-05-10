@@ -10,30 +10,30 @@ abstract class Post_Type
 {
 	/**
 	 * Post Type slug
-	 * @access protected
+	 * @access public
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	protected $post_type;
+	public $post_type;
 
 	/**
 	 * Labels
-	 * @access protected
+	 * @access public
 	 * @var array 	Optional
 	 *
 	 * @since 1.0.0
 	 */
-	protected $labels = array();
+	public $labels = array();
 
 	/**
 	 * Arguments
-	 * @access protected
+	 * @access public
 	 * @var array 	Optional
 	 *
 	 * @since 1.0.0
 	 */
-	protected $args = array();
+	public $args = array();
 
 
  	/**
@@ -41,7 +41,7 @@ abstract class Post_Type
  	 *
  	 * @since 1.0.0
  	 */
- 	protected function __construct()
+ 	public function __construct()
  	{
  		add_action( 'init', array( $this, 'register_post_type' ) );
  		register_activation_hook( __FILE__, array( $this, 'flush' ) );

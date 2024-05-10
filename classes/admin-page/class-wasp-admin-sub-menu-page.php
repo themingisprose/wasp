@@ -13,75 +13,75 @@ abstract class Admin_Sub_Menu_Page extends Page_Body
 
 	/**
 	 * Parent slug
-	 * @access protected
+	 * @access public
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	protected $parent_slug;
+	public $parent_slug;
 
 	/**
 	 * Page Title
-	 * @access protected
+	 * @access public
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	protected $page_title;
+	public $page_title;
 
 	/**
 	 * Menu Title
-	 * @access protected
+	 * @access public
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	protected $menu_title;
+	public $menu_title;
 
 	/**
 	 * Capability
-	 * @access protected
+	 * @access public
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	protected $capability;
+	public $capability;
 
 	/**
 	 * Manu slug
-	 * @access protected
+	 * @access public
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	protected $menu_slug;
+	public $menu_slug;
 
 	/**
 	 * Option Name
-	 * @access protected
+	 * @access public
 	 * @var int|float Optional
 	 *
 	 * @since 1.0.0
 	 */
-	protected $position = null;
+	public $position = null;
 
 	/**
 	 * Dashboard Title
-	 * @access protected
+	 * @access public
 	 * @var string 	Optional
 	 *
 	 * @since 1.0.0
 	 */
-	protected $page_heading;
+	public $page_heading;
 
 	/**
 	 * Option Group
-	 * @access protected
+	 * @access public
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	protected $option_group;
+	public $option_group;
 
 
 	/**
@@ -89,7 +89,7 @@ abstract class Admin_Sub_Menu_Page extends Page_Body
 	 *
 	 * @since 1.0.0
 	 */
-	protected function __construct()
+	public function __construct()
 	{
 		add_action( 'admin_menu', array( $this, 'admin_sub_menu' ) );
 	}

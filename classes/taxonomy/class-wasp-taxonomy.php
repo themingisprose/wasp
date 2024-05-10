@@ -11,46 +11,46 @@ abstract class Taxonomy
 
 	/**
 	 * Taxonomy slug
-	 * @access protected
+	 * @access public
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	protected $taxonomy;
+	public $taxonomy;
 
 	/**
 	 * Post Type slug
-	 * @access protected
+	 * @access public
 	 * @var array|string Required
 	 *
 	 * @since 1.0.0
 	 */
-	protected $object_type;
+	public $object_type;
 
 	/**
 	 * Labels
-	 * @access protected
+	 * @access public
 	 * @var array 	Optional
 	 *
 	 * @since 1.0.0
 	 */
-	protected $labels = array();
+	public $labels = array();
 
 	/**
 	 * Arguments
-	 * @access protected
+	 * @access public
 	 * @var array 	Optional
 	 *
 	 * @since 1.0.0
 	 */
-	protected $args = array();
+	public $args = array();
 
 	/**
 	 * Constructor
  	 *
  	 * @since 1.0.0
 	 */
- 	protected function __construct()
+ 	public function __construct()
  	{
  		add_action( 'init', array( $this, 'register_taxonomy' ) );
  	}

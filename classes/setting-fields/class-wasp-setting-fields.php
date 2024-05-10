@@ -14,66 +14,66 @@ abstract class Setting_Fields implements Fields
 
 	/**
 	 * Option group
-	 * @access protected
+	 * @access public
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	protected $option_group;
+	public $option_group;
 
 	/**
 	 * Option name
-	 * @access protected
+	 * @access public
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	protected $option_name;
+	public $option_name;
 
 	/**
 	 * HTML section id
-	 * @access protected
+	 * @access public
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	protected $section_id;
+	public $section_id;
 
 	/**
 	 * Section title
-	 * @access protected
+	 * @access public
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	protected $section_title;
+	public $section_title;
 
 	/**
 	 * Page slug
-	 * @access protected
+	 * @access public
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	protected $slug;
+	public $slug;
 
 	/**
 	 * HTML field id
-	 * @access protected
+	 * @access public
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	protected $field_id;
+	public $field_id;
 
 	/**
 	 * Field Title
-	 * @access protected
+	 * @access public
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	protected $field_title;
+	public $field_title;
 
 
 	/**
@@ -81,7 +81,7 @@ abstract class Setting_Fields implements Fields
 	 *
 	 * @since 1.0.0
 	 */
-	protected function __construct()
+	public function __construct()
 	{
 		add_action( 'admin_menu', array( $this, 'register_setting' ) );
 	}
@@ -121,7 +121,7 @@ abstract class Setting_Fields implements Fields
 	 *
 	 * @since 1.0.0
 	 */
-	protected function get_option( $meta )
+	public function get_option( $meta )
 	{
 		$option = get_option( $this->option_name );
 

@@ -14,19 +14,19 @@ abstract class Term_Meta implements Fields
 
 	/**
 	 * Taxonomy
-	 * @access protected
+	 * @access public
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	protected $taxonomy;
+	public $taxonomy;
 
 	/**
 	 * Constructor
 	 *
 	 * @since 1.0.0
 	 */
-	protected function __construct()
+	public function __construct()
 	{
 		add_action( 'admin_init', array( $this, 'init' ) );
 	}

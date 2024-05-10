@@ -14,64 +14,64 @@ abstract class Meta_Box implements Fields
 
 	/**
 	 * Meta box ID
-	 * @access protected
+	 * @access public
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	protected $id;
+	public $id;
 
 	/**
 	 * Title of the meta box
-	 * @access protected
+	 * @access public
 	 * @var string 	Required
 	 *
 	 * @since 1.0.0
 	 */
-	protected $title;
+	public $title;
 
 	/**
 	 * The screens or screens on which to show the box
-	 * @access protected
+	 * @access public
 	 * @var string|array Optional
 	 *
 	 * @since 1.0.0
 	 */
-	protected $screen = null;
+	public $screen = null;
 
 	/**
 	 * The context within the screens where the box should display
-	 * @access protected
+	 * @access public
 	 * @var string Optional
 	 *
 	 * @since 1.0.0
 	 */
-	protected $context = 'advanced';
+	public $context = 'advanced';
 
 	/**
 	 * The priority within the context where the box should show
-	 * @access protected
+	 * @access public
 	 * @var string Optional
 	 *
 	 * @since 1.0.0
 	 */
-	protected $priority = 'default';
+	public $priority = 'default';
 
 	/**
 	 * Data that should be set as the $args property of the box array
-	 * @access protected
+	 * @access public
 	 * @var array Optional
 	 *
 	 * @since 1.0.0
 	 */
-	protected $callback_args = null;
+	public $callback_args = null;
 
 	/**
 	 * Constructor
 	 *
 	 * @since 1.0.0
 	 */
-	protected function __construct()
+	public function __construct()
 	{
 		add_action( 'add_meta_boxes', array( $this, 'meta_box' ), 10, 6 );
 		add_action( 'save_post', array( $this, 'save_meta' ) );
